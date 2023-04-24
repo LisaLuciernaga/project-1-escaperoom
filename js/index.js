@@ -1,3 +1,43 @@
+window.addEventListener("load", function(){
+
+const startButton= document.getElementsById("start-button")
+startButton.addEventListener("click", function(){
+    game.startGame();
+})
+
+})
+
+
+/**
+ * @type HTMLCanvasElement
+ */
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+
+//Print startScreen
+ctx.fillStyle = "brown";
+ctx.fillRect(0, 0, 1000, 500);
+ctx.fillStyle = "#000000";
+ctx.font="65px Georgia";
+ctx.fillText("hello", 200, 200);
+
+canvas.addEventListener("click", function(){
+    ctx.save();
+    ctx.clearRect(0,0, canvas.width, canvas.height);
+
+    // Print Room Canvas
+    ctx.fillStyle = "yellow";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#000000";
+    ctx.font="65px Georgia";
+    ctx.fillText("this is the room canvas", 200, 200); // test, remove later and add img
+
+    ctx.restore();
+});
+
+
 
 const clickableObjects = [
     new ClickableObject (50, 100),
