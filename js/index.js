@@ -18,7 +18,7 @@ const ctx = canvas.getContext("2d");
 
 //Print startScreen
 ctx.fillStyle = "brown";
-ctx.fillRect(0, 0, 1000, 500);
+ctx.fillRect(0, 0, 1000, 550);
 ctx.fillStyle = "#000000";
 ctx.font="65px Georgia";
 ctx.fillText("hello", 200, 200);
