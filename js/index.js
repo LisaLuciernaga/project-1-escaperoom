@@ -1,38 +1,57 @@
+//For BootStrap
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 window.addEventListener("load", function(){
     //THIS IS THE PART OF THE CODE, WHERE WE DECLARE THINGS
 
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
+    let startText = "You're visiting your grandma and she asked for your help with her riddle contest. She's a little confused and scattered the riddles all over her living room... (click anywhere to begin)"
 
     //create all images for clickable objects
     let dog = document.createElement("img");
     dog.src = "img/dog.png";
+    dog.text = "Mr. Chaps - taxidermed"; //Text to display when hovering mouse
     
     // let grandma = document.createElement("img");
     // grandma.src = "img/XXX";
+    //grandma.text = "Grandma (sleeping)";
     
-    // let phone = document.createElement("img");
-    // phone.src = "img/XXX.png";
+    let phone = document.createElement("img");
+    phone.src = "img/phone.png";
+    phone.text = "Old phone";
     
-    // let urn = document.createElement("img");
-    // urn.src = "img/XXX";
+    let urn = document.createElement("img");
+    urn.src = "img/urn.png";
+    urn.text = "Grandpa's ashes";
     
     let clock = document.createElement("img");
     clock.src = "img/clock.png";
+    clock.text = "Clock";
     
     
     //Create images for non clickable objects
     let frames = document.createElement("img");
     frames.src = "img/frames.png";
+    frames.text = "Some old photos"; //Text to display when hovering mouse
     
     let painting = document.createElement("img");
     painting.src = "img/painting.png";
+    painting.text = "Grandma, when she was young & beautiful";
     
     let wardrobe = document.createElement("img");
     wardrobe.src = "img/wardrobe.png";
+    wardrobe.text = "Wardrobe";
 
     let comode = document.createElement("img");
     comode.src = "img/comode.png";
+    comode.text = "Bachelor's chest"
+
+
+    
 
     class ClickableObject {
         constructor (width, height, x, y, name, image, riddleId){
@@ -54,13 +73,13 @@ window.addEventListener("load", function(){
         
         
         
-        onClick(x, y){
+        onClick(){
             //Check if image clicked
-            if(x > this.image.x && x < (this.image.x + this.image.width && y > this.image.y && y < (this.image.y + this.image.height))){
+            // if(x > this.image.x && x < (this.image.x + this.image.width && y > this.image.y && y < (this.image.y + this.image.height))){
                 //Display riddle
-                console.log("you clicked on an image!")
+                // console.log("you clicked on an image!")
                 // this.riddle.show //Mariona??
-            } 
+            // }
         }
         
         print(){
@@ -74,8 +93,9 @@ window.addEventListener("load", function(){
 
     const clickableObjects = [
         new ClickableObject (100, 150, 0, 400, "dog", dog, 0),
-        new ClickableObject (150, 350, 450, 150, "clock", clock, 0)
-        
+        new ClickableObject (150, 350, 450, 150, "clock", clock, 0),
+        new ClickableObject (80, 120, 260, 200, "phone", phone, 0),
+        new ClickableObject (50, 70, 350, 240, "urn", urn, 0)
     ];
 
     let backgroundImg = document.createElement("img");
@@ -131,11 +151,32 @@ window.addEventListener("load", function(){
         }
         
         show(){
-            // open the popup window and display the question
+            // open the popup window and display the question $('#myModal').modal('show')
+            const riddleWindow = document.createElement ('div')
+            riddleWindow.innerHTML =  
+            `<div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">You've found a new riddle!</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>What common English verb becomes its own past tence by rearranging it's letters?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary">Check answer</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>`
         }
         
         hide(){
-            //hide popup
+            //hide popup $('#myModal').modal('hide')
         }
         
         checkSolution(){
@@ -149,17 +190,46 @@ window.addEventListener("load", function(){
 //THIS IS THE PART OF THE CODE, WHERE WE EXECUTE THINGS
 
     //Print startScreen
-    ctx.fillStyle = "brown";
+    ctx.fillStyle = "#9F8E72";
     ctx.fillRect(0, 0, 1000, 550);
     ctx.fillStyle = "#000000";
-    ctx.font="65px Georgia";
-    ctx.fillText("hello", 200, 200);
+    ctx.font="20px Georgia";
+    ctx.fillText(startText, 10, 50);
     
     canvas.addEventListener("click", game.startGame);
     canvas.addEventListener("click", (e)=>{
         let x = e.offsetX;
         let y = e.offsetY;
-        ClickableObject.onClick(x, y);
+
+        for(let i = 0; i < clickableObjects.length; i++){
+            if(x > clickableObjects[i].positionX && x < (clickableObjects[i].positionX + clickableObjects[i].width) && y > clickableObjects[i].positionY && y < (clickableObjects[i].positionY + clickableObjects[i].height)){
+                //Display riddle
+                console.log("you clicked on an image!")
+            // ClickableObject.onClick(x, y);
+            }
+        }
     })
+
+    canvas.addEventListener("onmouseover", (e)=>{
+        console.log() //Mariona?!!! How did you check, which values a mouseevent returns?? Or can I use isPointInside here?
+
+        // image.isPointInside = function(x,y){
+        //     return( x>=this.x 
+        //             && x<=this.x+this.width
+        //             && y>=this.y
+        //             && y<=this.y+this.height);
+    })
+
+
+
+
+
+
+
+
+
+
+
+
 })
 
