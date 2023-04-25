@@ -1,18 +1,12 @@
 window.addEventListener("load", function(){
 
-
-
-const startButton = document.getElementById('start-button')
-startButton.addEventListener('click', function(){
-
-    game.startGame()
+const startButton= document.getElementsById("start-button")
+startButton.addEventListener("click", function(){
+    game.startGame();
 })
 
-
-
-
-
 })
+
 
 /**
  * @type HTMLCanvasElement
@@ -22,33 +16,26 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 
+//Print startScreen
+ctx.fillStyle = "brown";
+ctx.fillRect(0, 0, 1000, 550);
+ctx.fillStyle = "#000000";
+ctx.font="65px Georgia";
+ctx.fillText("hello", 200, 200);
 
-//PrintstartScreen
+canvas.addEventListener("click", function(){
+    ctx.save();
+    ctx.clearRect(0,0, canvas.width, canvas.height);
 
+    // Print Room Canvas
+    ctx.fillStyle = "yellow";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#000000";
+    ctx.font="65px Georgia";
+    ctx.fillText("this is the room canvas", 200, 200); // test, remove later and add img
 
-ctx.font = "100px Arial";
-ctx.fillStyle = "black";
-ctx.fillText("START", 340, 380)
-
-
-
-
-//End of PrintstartScreen
-
-//Backgroundimg for canvas
-
-var img = new Image();
-
-img.onload = function() {
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-    ctx.font = "30px Arial";
-    ctx.fillStyle = "white";
-    ctx.fillText("Text in front of image", 400, 400);
-
-  };
- img.src = "https://burst.shopifycdn.com/photos/green-castle-door-architecture.jpg?width=925&format=pjpg&exif=1&iptc=1";
-
+    ctx.restore();
+});
 
 
 
