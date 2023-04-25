@@ -8,6 +8,8 @@ const ctx = canvas.getContext("2d");
 //     new ClickableObject (),
 // ];
 
+let backgroundImg = document.createElement("img");
+backgroundImg.src = "img/background.jpg";
 
 let game = {
     // objects: clickableObjects,
@@ -18,13 +20,13 @@ let game = {
         ctx.clearRect(0,0, canvas.width, canvas.height);
         
         // Print Room Canvas
-        ctx.fillStyle = "yellow";
+        ctx.fillStyle = "grey";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "#000000";
-        ctx.font="65px Georgia";
-        ctx.fillText("this is the room canvas", 200, 200); // test, remove later and add img
-        
+        ctx.drawImage(backgroundImg, 0, 0, canvas.width, canvas.height);
         ctx.restore();
+
+        //Print objects on top of background (Erika)
+
     },
     startTimer () {},
     loose () {
@@ -101,5 +103,5 @@ window.addEventListener("load", function(){
     ctx.font="65px Georgia";
     ctx.fillText("hello", 200, 200);
     
-    canvas.addEventListener("click", game.startGame); //Why does this part execute, even if the canvas isn't clicked??
+    canvas.addEventListener("click", game.startGame);
 })
