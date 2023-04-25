@@ -34,9 +34,6 @@ window.addEventListener("load", function(){
     let comode = document.createElement("img");
     comode.src = "img/comode.png";
 
-
-    
-
     class ClickableObject {
         constructor (width, height, x, y, name, image, riddleId){
             this.width = width;
