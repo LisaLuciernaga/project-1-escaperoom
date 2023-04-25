@@ -4,6 +4,7 @@ window.addEventListener("load", function(){
 
 const startButton = document.getElementById('start-button')
 startButton.addEventListener('click', function(){
+
     game.startGame()
 })
 
@@ -21,12 +22,34 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 
+
 //PrintstartScreen
 
-ctx.fillStyle = "red";
-//ctx.fillRect(0, 0, 1000, 700)
-ctx.filltext("textToShow", 40, 40)
-ctx.font = "62px Arial";
+
+ctx.font = "100px Arial";
+ctx.fillStyle = "black";
+ctx.fillText("START", 340, 380)
+
+
+
+
+//End of PrintstartScreen
+
+//Backgroundimg for canvas
+
+var img = new Image();
+
+img.onload = function() {
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "white";
+    ctx.fillText("Text in front of image", 400, 400);
+
+  };
+ img.src = "https://burst.shopifycdn.com/photos/green-castle-door-architecture.jpg?width=925&format=pjpg&exif=1&iptc=1";
+
+
 
 
 const clickableObjects = [
