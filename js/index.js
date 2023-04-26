@@ -90,7 +90,7 @@ window.addEventListener("load", function () {
   }
 
   const clickableObjects = [
-    new ClickableObject(100, 150, 0, 400, "dog", dog, 0),
+    new ClickableObject(160, 170, 0, 380, "dog", dog, 0),
     new ClickableObject(150, 350, 450, 150, "clock", clock, 0),
     new ClickableObject(80, 120, 260, 200, "phone", phone, 0),
     new ClickableObject(50, 70, 350, 240, "urn", urn, 0),
@@ -145,14 +145,18 @@ window.addEventListener("load", function () {
     constructor(name, solution, modal) {
       this.riddleId = name;
       this.solution = solution;
-      this.modal = modal
+      this.modal = modal;
+      this.solved = false;
     }
 
     checkSolution() {
-        // let answerElement = document.getElementById("floatingTextarea1");
-        // let answerValue = answerElement.value;
-        // // Log the answer value to the console
-        // console.log(answerValue);
+        //needed?
+    }
+
+    solve(){
+        //Display that the answer is correct (make sound?) --bootstrap alert?
+        //Make image no longer clickable
+        //Increase score
     }
   }
 
@@ -197,29 +201,107 @@ window.addEventListener("load", function () {
     }
   });
 
-  document.getElementById("button1").addEventListener("click", function checkSolution() {
+  //Riddle #1 button, winning condition
+  document.getElementById("button1").addEventListener("click", function() {
     // Get the answer element and value
     let answerElement = document.getElementById("floatingTextarea1");
     let answerValue = answerElement.value;
     answerValue = answerValue.toLowerCase()
-    
-    // Log the answer value to the console
-    console.log(answerValue);
 
     //Check if the answer is correct
     if(answerValue == riddles[0].solution || answerValue.includes('eat')){
         console.log("correct answer!");
+        riddles[0].solved = true;
+        riddles[0].solve();
+        game.score +=1;
+        console.log(game.score)
+    } 
+    else console.log("wrong answer");
+  });
+  
+  //Riddle #2 button, winning condition
+  document.getElementById("button2").addEventListener("click", function() {
+    // Get the answer element and value
+    let answerElement = document.getElementById("floatingTextarea2");
+    let answerValue = answerElement.value;
+    answerValue = answerValue.toLowerCase()
+
+    //Check if the answer is correct
+    if(answerValue.includes('2') || answerValue.includes('two')){
+        console.log("correct answer!");
+        riddles[1].solved = true;
+        riddles[1].solve();
+        game.score +=1;
+        console.log(game.score)
     } 
     else console.log("wrong answer");
   });
 
-  canvas.addEventListener("onmouseover", (e) => {
-    console.log(); //Mariona?!!! How did you check, which values a mouseevent returns?? Or can I use isPointInside here?
+  //Riddle #3 button, winning condition
+  document.getElementById("button3").addEventListener("click", function() {
+    // Get the answer element and value
+    let answerElement = document.getElementById("floatingTextarea3");
+    let answerValue = answerElement.value;
+    answerValue = answerValue.toLowerCase()
+
+    //Check if the answer is correct
+    if(answerValue.includes('what would your brother')){
+        console.log("correct answer!");
+        riddles[2].solved = true;
+        riddles[2].solve();
+        game.score +=1;
+        console.log(game.score)
+    } 
+    else console.log("wrong answer");
+  });
+
+  //Riddle #4 button, winning condition
+  document.getElementById("button4").addEventListener("click", function() {
+    // Get the answer element and value
+    let answerElement = document.getElementById("floatingTextarea4");
+    let answerValue = answerElement.value;
+    answerValue = answerValue.toLowerCase()
+
+    //Check if the answer is correct
+    if(answerValue.includes('5 min') || answerValue.includes('five min')){
+        console.log("correct answer!");
+        riddles[3].solved = true;
+        riddles[3].solve();
+        game.score +=1;
+        console.log(game.score)
+    } 
+    else console.log("wrong answer");
+  });
+
+  //Riddle #5 button, winning condition
+  document.getElementById("button5").addEventListener("click", function() {
+    // Get the answer element and value
+    let answerElement = document.getElementById("floatingTextarea5");
+    let answerValue = answerElement.value;
+    answerValue = answerValue.toLowerCase()
+
+    //Check if the answer is correct
+    if(answerValue.includes('david')){
+        console.log("correct answer!");
+        riddles[3].solved = true;
+        riddles[3].solve();
+        game.score +=1;
+        console.log(game.score)
+    } 
+    else console.log("wrong answer");
+  });
+
+
+
+
+
+//   canvas.addEventListener("onmouseover", (e) => {
+//     console.log(); //Mariona?!!! How did you check, which values a mouseevent returns?? Or can I use isPointInside here?
 
     // image.isPointInside = function(x,y){
     //     return( x>=this.x
     //             && x<=this.x+this.width
     //             && y>=this.y
     //             && y<=this.y+this.height);
-  });
+//   });
 });
