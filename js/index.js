@@ -135,23 +135,23 @@ window.addEventListener("load", function () {
       this.startTimer()
     },
     startTimer() {
-      let minutes = 0;
+      let minutes = 5;
       let seconds = 0;
       const timerElement = document.getElementById("timer");
         
       let intervalId = setInterval(() => {
-        seconds++;
+        seconds--;
 
-        if (seconds === 60) {
-          seconds = 0;
-          minutes++;
+        if (seconds === -1) {
+          seconds = 59;
+          minutes--;
         }
 
         let timeString = this.padZero(minutes) + ":" + this.padZero(seconds);
 
         timerElement.textContent = timeString;
         console.log(seconds);
-        if (minutes === 5) {
+        if (minutes === 0 && seconds === 0) {
           clearInterval(intervalId);
           return;
         }
@@ -164,7 +164,15 @@ window.addEventListener("load", function () {
       return num.toString().padStart(2, "0");
     },
 
-    keepScore() {},
+    keepScore() {
+
+        let score = 0;
+
+        const scoreElement = document.getElementById("score");
+
+        
+
+    },
 
     loose() {
       //show pop up with aunt Mildred & text

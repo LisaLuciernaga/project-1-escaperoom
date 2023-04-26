@@ -5,7 +5,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> */
 
 body {
-    background-image: url("images\backg.jpg");
+    /* background-color: grey; */
+    background-color: rgba(72, 67, 68, 0.6);
 }
 
 canvas {
@@ -21,20 +22,31 @@ canvas {
 
 .containerTimeScore {
     display: flex;
+    height: 100px;
+    align-content: center;
+
     justify-content: center;
-    width: 50%;
+    
+   
     
     
 }
 
 
 #timer {
+
+    width: 100px;
+    height: 100px;
+    margin: auto;
+
+    align-content:center;
+    align-items: center;
     display:flex;
     justify-content: center;
     border: 5px solid #412c0229;
     border-radius: 20px;
     box-sizing: border-box;
-    height: 180px;
+    height: 100px;
     margin: 0 auto; 
     padding: 18px 0; 
     width: 345px;
@@ -46,15 +58,24 @@ canvas {
   }
 
   #score {
+    width: 100px;
+    height: 100px;
+    margin: auto;
+
+    align-content: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
     border: 5px solid #412c0229;
     border-radius: 20px;
     box-sizing: border-box;
-    height: 180px;
+    height: 100px;
     margin: 0 auto;
     padding: 18px 0;
     width: 345px;
-    font-size: 80px;
+    font-size: 40px;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+    
   }
 
 
