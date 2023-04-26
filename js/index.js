@@ -1,12 +1,12 @@
 window.addEventListener("load", function(){
-
+    
+    //this part is not defined in HTML, maybe we should delete it
 const startButton= document.getElementsById("start-button")
 startButton.addEventListener("click", function(){
     game.startGame();
 })
 
 })
-
 
 /**
  * @type HTMLCanvasElement
@@ -21,7 +21,7 @@ ctx.fillStyle = "brown";
 ctx.fillRect(0, 0, 1000, 550);
 ctx.fillStyle = "#000000";
 ctx.font="65px Georgia";
-ctx.fillText("hello", 200, 200);
+ctx.fillText("hello",canvas.width/2, canvas.height/2);
 
 canvas.addEventListener("click", function(){
     ctx.save();
@@ -51,7 +51,35 @@ const game = {
     startGame (){
         //display game screen, call start timer, display score
     },
-    startTimer () {},
+     startTimer() {
+        let minutes = 0;
+        let seconds = 0;
+        const timerElement = document.getElementById("timer")
+    
+        let intervalId = setInterval(() => {
+            seconds++;
+    
+            if (seconds === 60) {
+                seconds = 0;
+                minutes++;
+            };
+    
+            let timeString = padZero(minutes) + ":" + padZero(seconds);
+           
+            timerElement.textContent = timeString;
+    
+            if (minutes === 5) {
+                clearInterval(intervalId);
+                return;
+            }
+        }, 1000);
+    
+        return intervalId;
+    },
+    
+     padZero(num) {
+        return num.toString().padStart(2, "0");
+    },
     loose () {
         //show pop up with aunt Mildred & text
     },
