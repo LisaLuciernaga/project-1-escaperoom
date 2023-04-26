@@ -16,3 +16,9 @@ canvas {
     display: block;
     border: 4px solid blue;
 }
+
+#timer {
+   
+    border: 2px solid green
+
+}

@@ -126,7 +126,35 @@ window.addEventListener("load", function(){
             }
 
         },
-        startTimer () {},
+        startTimer () {
+            let minutes = 0;
+        let seconds = 0;
+        const timerElement = document.getElementById("timer")
+    
+        let intervalId = setInterval(() => {
+            seconds++;
+    
+            if (seconds === 60) {
+                seconds = 0;
+                minutes++;
+            };
+    
+            let timeString = this.padZero(minutes) + ":" + this.padZero(seconds );
+           
+            timerElement.textContent = timeString;
+            console.log(seconds)
+            if (minutes === 5) {
+                clearInterval(intervalId);
+                return;
+            }
+        }, 50);
+    
+        return intervalId;
+    },
+    
+     padZero(num) {
+        return num.toString().padStart(2, "0");
+        },
 
         keepScore () {},
 
