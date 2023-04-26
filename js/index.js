@@ -53,25 +53,17 @@ window.addEventListener("load", function () {
       this.name = name;
       this.image = image;
       this.riddle = riddleId;
+      this.solved = false;
     }
 
     onHover() {
       //display object name - use onmouseover on the img for this?(https://www.w3schools.com/jsref/event_onmouseover.asp)
-      if (
-        x > image.x &&
-        x < (image.x + image.width && y > image.y && y < image.y + image.height)
-      ) {
-        //Display image name
-      }
-    }
-
-    onClick() {
-      //Check if image clicked
-      // if(x > this.image.x && x < (this.image.x + this.image.width && y > this.image.y && y < (this.image.y + this.image.height))){
-      //Display riddle
-      // console.log("you clicked on an image!")
-      // this.riddle.show //Mariona??
-      // }
+      //   if (
+      //     x > image.x &&
+      //     x < (image.x + image.width && y > image.y && y < image.y + image.height)
+      //   ) {
+      //     //Display image name
+      //   }
     }
 
     print() {
@@ -82,10 +74,6 @@ window.addEventListener("load", function () {
         this.width,
         this.height
       );
-    }
-
-    solve() {
-      //Solve the riddle, increment score, make object not clickable
     }
   }
 
@@ -148,25 +136,15 @@ window.addEventListener("load", function () {
       this.modal = modal;
       this.solved = false;
     }
-
-    checkSolution() {
-        //needed?
-    }
-
-    solve(){
-        //Display that the answer is correct (make sound?) --bootstrap alert?
-        //Make image no longer clickable
-        //Increase score
-    }
   }
 
   const riddles = [
-    new Riddle (riddle1, "eat", new bootstrap.Modal("#riddle1")),
-    new Riddle (riddle2, '2', new bootstrap.Modal("#riddle2")),
-    new Riddle (riddle3, "what would your brother say?", new bootstrap.Modal("#riddle3")),
-    new Riddle (riddle4, '5 minutes', new bootstrap.Modal("#riddle4")),
-    new Riddle (riddle5, 'david', new bootstrap.Modal("#riddle5"))
-  ]
+    new Riddle(riddle1, "eat", new bootstrap.Modal("#riddle1")),
+    new Riddle(riddle2, "2", new bootstrap.Modal("#riddle2")),
+    new Riddle(riddle3, "what would your brother say?", new bootstrap.Modal("#riddle3")),
+    new Riddle(riddle4, "5 minutes", new bootstrap.Modal("#riddle4")),
+    new Riddle(riddle5, "david", new bootstrap.Modal("#riddle5")),
+  ];
 
   //THIS IS THE PART OF THE CODE, WHERE WE EXECUTE THINGS
 
@@ -195,113 +173,124 @@ window.addEventListener("load", function () {
         ) {
           //Display riddle
           console.log("you clicked on an image!");
-          riddles[i].modal.show();
+          if (clickableObjects[i].solved == false) {
+            riddles[i].modal.show();
+          }
         }
       }
     }
   });
 
   //Riddle #1 button, winning condition
-  document.getElementById("button1").addEventListener("click", function() {
+  document.getElementById("button1").addEventListener("click", function () {
     // Get the answer element and value
     let answerElement = document.getElementById("floatingTextarea1");
     let answerValue = answerElement.value;
-    answerValue = answerValue.toLowerCase()
+    answerValue = answerValue.toLowerCase();
 
     //Check if the answer is correct
-    if(answerValue == riddles[0].solution || answerValue.includes('eat')){
-        console.log("correct answer!");
-        riddles[0].solved = true;
-        riddles[0].solve();
-        game.score +=1;
-        console.log(game.score)
-    } 
-    else console.log("wrong answer");
+    if (answerValue == riddles[0].solution || answerValue.includes("eat")) {
+      console.log("correct answer!");
+      clickableObjects[0].solved = true;
+      game.score += 1;
+      console.log(game.score);
+      window.alert(
+        "It seems that you dominate the English language, correct answer!"
+      );
+    } else {
+      console.log("wrong answer");
+      window.alert("Wrong answer, try again");
+    }
   });
-  
+
   //Riddle #2 button, winning condition
-  document.getElementById("button2").addEventListener("click", function() {
+  document.getElementById("button2").addEventListener("click", function () {
     // Get the answer element and value
     let answerElement = document.getElementById("floatingTextarea2");
     let answerValue = answerElement.value;
-    answerValue = answerValue.toLowerCase()
+    answerValue = answerValue.toLowerCase();
 
     //Check if the answer is correct
-    if(answerValue.includes('2') || answerValue.includes('two')){
-        console.log("correct answer!");
-        riddles[1].solved = true;
-        riddles[1].solve();
-        game.score +=1;
-        console.log(game.score)
-    } 
-    else console.log("wrong answer");
+    if (answerValue.includes("2") || answerValue.includes("two")) {
+      console.log("correct answer!");
+      clickableObjects[1].solved = true;
+      game.score += 1;
+      console.log(game.score);
+      window.alert("You're a genius! That's the correct answer");
+    } else {
+      console.log("wrong answer");
+      window.alert("Wrong answer, try again");
+    }
   });
 
   //Riddle #3 button, winning condition
-  document.getElementById("button3").addEventListener("click", function() {
+  document.getElementById("button3").addEventListener("click", function () {
     // Get the answer element and value
     let answerElement = document.getElementById("floatingTextarea3");
     let answerValue = answerElement.value;
-    answerValue = answerValue.toLowerCase()
+    answerValue = answerValue.toLowerCase();
 
     //Check if the answer is correct
-    if(answerValue.includes('what would your brother')){
-        console.log("correct answer!");
-        riddles[2].solved = true;
-        riddles[2].solve();
-        game.score +=1;
-        console.log(game.score)
-    } 
-    else console.log("wrong answer");
+    if (answerValue.includes("what would your brother")) {
+      console.log("correct answer!");
+      clickableObjects[2].solved = true;
+      game.score += 1;
+      console.log(game.score);
+      window.alert("Yes! That's right! You're good at this");
+    } else {
+      console.log("wrong answer");
+      window.alert("Wrong answer, try again");
+    }
   });
 
   //Riddle #4 button, winning condition
-  document.getElementById("button4").addEventListener("click", function() {
+  document.getElementById("button4").addEventListener("click", function () {
     // Get the answer element and value
     let answerElement = document.getElementById("floatingTextarea4");
     let answerValue = answerElement.value;
-    answerValue = answerValue.toLowerCase()
+    answerValue = answerValue.toLowerCase();
 
     //Check if the answer is correct
-    if(answerValue.includes('5 min') || answerValue.includes('five min')){
-        console.log("correct answer!");
-        riddles[3].solved = true;
-        riddles[3].solve();
-        game.score +=1;
-        console.log(game.score)
-    } 
-    else console.log("wrong answer");
+    if (answerValue.includes("5 min") || answerValue.includes("five min")) {
+      console.log("correct answer!");
+      clickableObjects[3].solved = true;
+      game.score += 1;
+      console.log(game.score);
+      window.alert("Correct answer!");
+    } else {
+      console.log("wrong answer");
+      window.alert("Wrooong!!!");
+    }
   });
 
   //Riddle #5 button, winning condition
-  document.getElementById("button5").addEventListener("click", function() {
+  document.getElementById("button5").addEventListener("click", function () {
     // Get the answer element and value
     let answerElement = document.getElementById("floatingTextarea5");
     let answerValue = answerElement.value;
-    answerValue = answerValue.toLowerCase()
+    answerValue = answerValue.toLowerCase();
 
     //Check if the answer is correct
-    if(answerValue.includes('david')){
-        console.log("correct answer!");
-        riddles[3].solved = true;
-        riddles[3].solve();
-        game.score +=1;
-        console.log(game.score)
+    if (answerValue.includes("david")) {
+      console.log("correct answer!");
+      clickableObjects[4].solved = true;
+      game.score += 1;
+      console.log(game.score);
+      window.alert("Duh. Correct answer");
     } 
-    else console.log("wrong answer");
+    else {
+      console.log("wrong answer");
+      window.alert("Wrong answer, try again");
+    }
   });
 
+  //   canvas.addEventListener("onmouseover", (e) => {
+  //     console.log(); //Mariona?!!! How did you check, which values a mouseevent returns?? Or can I use isPointInside here?
 
-
-
-
-//   canvas.addEventListener("onmouseover", (e) => {
-//     console.log(); //Mariona?!!! How did you check, which values a mouseevent returns?? Or can I use isPointInside here?
-
-    // image.isPointInside = function(x,y){
-    //     return( x>=this.x
-    //             && x<=this.x+this.width
-    //             && y>=this.y
-    //             && y<=this.y+this.height);
-//   });
+  // image.isPointInside = function(x,y){
+  //     return( x>=this.x
+  //             && x<=this.x+this.width
+  //             && y>=this.y
+  //             && y<=this.y+this.height);
+  //   });
 });
