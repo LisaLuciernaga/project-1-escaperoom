@@ -9,7 +9,7 @@ window.addEventListener("load", function () {
   //create all images for clickable objects
   let dog = document.createElement("img");
   dog.src = "img/dog.png";
-  dog.text = "Mr. Chaps - taxidermed"; //Text to display when hovering mouse
+  dog.text = "Mrs. Chaps - taxidermed"; //Text to display when hovering mouse
 
   let grandma = document.createElement("img");
   grandma.src = "img/grandma.png";
@@ -78,7 +78,7 @@ window.addEventListener("load", function () {
   }
 
   const clickableObjects = [
-    new ClickableObject(160, 170, 0, 380, "dog", dog, 0),
+    new ClickableObject(110, 140, 0, 400, "dog", dog, 0),
     new ClickableObject(150, 350, 450, 150, "clock", clock, 0),
     new ClickableObject(80, 120, 260, 200, "phone", phone, 0),
     new ClickableObject(50, 70, 350, 240, "urn", urn, 0),
@@ -119,8 +119,20 @@ window.addEventListener("load", function () {
     startTimer() {},
 
     loose() {
-      //show pop up with aunt Mildred & text
-    },
+        //auntMildred animation
+        setInterval(function () {
+            if (auntmildred.x > 500){
+                auntMildred.x++
+            }
+        }, 60);
+
+        //Print loosing screen
+        ctx.fillStyle = "#9F8E72";
+        ctx.fillRect(0, 0, 1000, 550);
+        ctx.fillStyle = "#000000";
+        ctx.font = "20px Georgia";
+        ctx.fillText("You lost!!!", 10, 50);    },
+
     win() {
       //Print winning screen
         ctx.fillStyle = "#9F8E72";
