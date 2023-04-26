@@ -118,13 +118,16 @@ window.addEventListener("load", function () {
     },
     startTimer() {},
 
-    keepScore() {},
-
     loose() {
       //show pop up with aunt Mildred & text
     },
     win() {
-      //show pop up (your gran won riddle contest or so, img)
+      //Print winning screen
+        ctx.fillStyle = "#9F8E72";
+        ctx.fillRect(0, 0, 1000, 550);
+        ctx.fillStyle = "#000000";
+        ctx.font = "20px Georgia";
+        ctx.fillText("You won!!!", 10, 50);
     },
   };
 
@@ -197,6 +200,7 @@ window.addEventListener("load", function () {
       window.alert(
         "It seems that you dominate the English language, correct answer!"
       );
+      if(game.score == 5) game.win();
     } else {
       console.log("wrong answer");
       window.alert("Wrong answer, try again");
@@ -217,6 +221,7 @@ window.addEventListener("load", function () {
       game.score += 1;
       console.log(game.score);
       window.alert("You're a genius! That's the correct answer");
+      if(game.score == 5) game.win();
     } else {
       console.log("wrong answer");
       window.alert("Wrong answer, try again");
@@ -237,6 +242,7 @@ window.addEventListener("load", function () {
       game.score += 1;
       console.log(game.score);
       window.alert("Yes! That's right! You're good at this");
+      if(game.score == 5) game.win();
     } else {
       console.log("wrong answer");
       window.alert("Wrong answer, try again");
@@ -257,6 +263,7 @@ window.addEventListener("load", function () {
       game.score += 1;
       console.log(game.score);
       window.alert("Correct answer!");
+      if(game.score == 5) game.win();
     } else {
       console.log("wrong answer");
       window.alert("Wrooong!!!");
@@ -277,6 +284,7 @@ window.addEventListener("load", function () {
       game.score += 1;
       console.log(game.score);
       window.alert("Duh. Correct answer");
+      if(game.score == 5) game.win();
     } 
     else {
       console.log("wrong answer");
