@@ -1,8 +1,8 @@
 //For BootStrap
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+{/* <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> */}
 
 window.addEventListener("load", function(){
     //THIS IS THE PART OF THE CODE, WHERE WE DECLARE THINGS
@@ -16,9 +16,9 @@ window.addEventListener("load", function(){
     dog.src = "img/dog.png";
     dog.text = "Mr. Chaps - taxidermed"; //Text to display when hovering mouse
     
-    // let grandma = document.createElement("img");
-    // grandma.src = "img/XXX";
-    //grandma.text = "Grandma (sleeping)";
+    let grandma = document.createElement("img");
+    grandma.src = "img/grandma.png";
+    grandma.text = "Grandma (sleeping)";
     
     let phone = document.createElement("img");
     phone.src = "img/phone.png";
@@ -71,8 +71,6 @@ window.addEventListener("load", function(){
             }
         }
         
-        
-        
         onClick(){
             //Check if image clicked
             // if(x > this.image.x && x < (this.image.x + this.image.width && y > this.image.y && y < (this.image.y + this.image.height))){
@@ -95,7 +93,8 @@ window.addEventListener("load", function(){
         new ClickableObject (100, 150, 0, 400, "dog", dog, 0),
         new ClickableObject (150, 350, 450, 150, "clock", clock, 0),
         new ClickableObject (80, 120, 260, 200, "phone", phone, 0),
-        new ClickableObject (50, 70, 350, 240, "urn", urn, 0)
+        new ClickableObject (50, 70, 350, 240, "urn", urn, 0),
+        new ClickableObject (200, 250, 750, 300, "grandma", grandma, 0)
     ];
 
     let backgroundImg = document.createElement("img");
