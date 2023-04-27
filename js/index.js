@@ -3,13 +3,18 @@ window.addEventListener("load", function () {
 
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
+
   let startText1 =
     "You're visiting your grandma and she asked for your help with her riddle contest.";
   let startText2 =
     "She's a little confused and scattered the riddles all over her living room... (click anywhere to begin)";
+  let startText3 = "Escaping Aunt Mildred";
 
   let auntMildred = document.createElement("img");
   auntMildred.src = "img/auntMildred.png";
+
+  let winTrophy = document.createElement("img");
+  winTrophy.src = "img/winTrophy.gif";
 
   //create all images for clickable objects
   let dog = document.createElement("img");
@@ -203,6 +208,8 @@ window.addEventListener("load", function () {
       ctx.fillStyle = "#000000";
       ctx.font = "20px Georgia";
       ctx.fillText("You won!!!", 10, 50);
+
+      winTrophy.onload =() =>{ctx.drawImage(winTrophy, 400, 200, 200, 200)};
     },
   };
 
@@ -238,9 +245,10 @@ window.addEventListener("load", function () {
 
   ctx.fillText(startText1, 20, 420);
   ctx.fillText(startText2, 20, 480);
+  ctx.fillText(startText3, 300, 100, 800);
 
-  ctx.drawImage(auntMildred, 500, 250, 90, 80);
-
+  auntMildred.onload =() =>{ctx.drawImage(auntMildred, 350, 150, 200, 200)};
+  
   canvas.addEventListener("click", (e) => {
     //If game hasn't started yet, start game
     if (game.started == false) {
