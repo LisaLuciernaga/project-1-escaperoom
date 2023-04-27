@@ -170,7 +170,19 @@ window.addEventListener("load", function () {
 
         const scoreElement = document.getElementById("score");
 
+        if (point === true) {
+            score++;
+        }
+
         
+
+
+
+
+
+
+
+
 
     },
 

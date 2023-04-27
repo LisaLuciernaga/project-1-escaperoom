@@ -5,8 +5,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> */
 
 body {
-    /* background-color: grey; */
-    background-color: rgba(72, 67, 68, 0.6);
+    
+    background-color: rgba(81, 48, 6, 0.6);
+    
 }
 
 canvas {
@@ -46,7 +47,6 @@ canvas {
     border: 5px solid #412c0229;
     border-radius: 20px;
     box-sizing: border-box;
-    height: 100px;
     margin: 0 auto; 
     padding: 18px 0; 
     width: 345px;
