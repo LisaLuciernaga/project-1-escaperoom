@@ -8,9 +8,6 @@ window.addEventListener("load", function () {
   let startText2 =
     "She's a little confused and scattered the riddles all over her living room... (click anywhere to begin)";
 
-  let auntMildred = document.createElement("img");
-  auntMildred.src = "img/auntMildred.png";
-
   //create all images for clickable objects
   let dog = document.createElement("img");
   dog.src = "img/dog.png";
@@ -70,27 +67,18 @@ window.addEventListener("load", function () {
   let suitcasey = document.createElement("img");
   suitcasey.src = "img/suitcasey.png";
 
+  
   class ClickableObject {
-    constructor(width, height, x, y, name, image, riddleId) {
+    constructor(width, height, x, y, name, image) {
       this.width = width;
       this.height = height;
       this.positionX = x;
       this.positionY = y;
       this.name = name;
       this.image = image;
-      this.riddle = riddleId;
       this.solved = false;
     }
-
-    // onHover() {
-    //display object name - use onmouseover on the img for this?(https://www.w3schools.com/jsref/event_onmouseover.asp)
-    //   if (
-    //     x > image.x &&
-    //     x < (image.x + image.width && y > image.y && y < image.y + image.height)
-    //   ) {
-    //     //Display image name
-    //   }
-
+    
     print() {
       ctx.drawImage(
         this.image,
@@ -98,23 +86,43 @@ window.addEventListener("load", function () {
         this.positionY,
         this.width,
         this.height
-      );
+        );
+      }
     }
-  }
+    
+    const clickableObjects = [
+      new ClickableObject(100, 150, 0, 400, "dog", dog),
+      new ClickableObject(150, 350, 450, 150, "clock", clock),
+      new ClickableObject(80, 120, 260, 200, "phone", phone),
+      new ClickableObject(50, 70, 350, 240, "urn", urn),
+      new ClickableObject(200, 250, 750, 300, "grandma", grandma),
+    ];
+    
+    let backgroundImg = document.createElement("img");
+    backgroundImg.src = "img/background.jpg";
 
-  const clickableObjects = [
-    new ClickableObject(100, 150, 0, 400, "dog", dog, 0),
-    new ClickableObject(150, 350, 450, 150, "clock", clock, 0),
-    new ClickableObject(80, 120, 260, 200, "phone", phone, 0),
-    new ClickableObject(50, 70, 350, 240, "urn", urn, 0),
-    new ClickableObject(200, 250, 750, 300, "grandma", grandma, 0),
-  ];
+    //Create audios
+    let backgroundMusic = document.getElementById("backgroundmusic");
+    backgroundMusic.loop = true;
 
-  let backgroundImg = document.createElement("img");
-  backgroundImg.src = "img/background.jpg";
+    let openRiddleAudio = document.getElementById("openriddle");
+    let closeRiddleAudio = document.getElementById("closeriddle");
+    let correctAnswerAudio = document.getElementById("correctanswer");
+    let wrongAnswerAudio = document.getElementById("wronganswer");
+    let snorringAudio = document.getElementById("snorring");
+    let looseAudio = document.getElementById("loose");
+    let applauseAudio = document.getElementById("applause");
+    
+    // Aunt Mildred
+    let auntMildred = document.createElement('img');
+    auntMildred.src = "img/auntmildred.png";
+    auntMildred.x = 1001;
+
+    // Create a new Image object
+    var auntMildredImg = new Image();
+    auntMildredImg.src = auntMildred.src;
 
   let game = {
-    // objects: clickableObjects,
     score: 0,
     started: false,
 
@@ -130,6 +138,7 @@ window.addEventListener("load", function () {
       ctx.restore();
 
       //Print non-clickable objects
+      ctx.drawImage(auntMildred, 1001, 300, 250, 250);
       ctx.drawImage(wardrobe, 0, 70, 300, 450);
       ctx.drawImage(picture, 700, 35, 200, 180);
       ctx.drawImage(frames, 300, 40, 150, 160);
@@ -146,6 +155,10 @@ window.addEventListener("load", function () {
       for (let i = 0; i < clickableObjects.length; i++) {
         clickableObjects[i].print();
       }
+
+      //Start backgroundmusic
+      backgroundMusic.play();
+      snorringAudio.play();
 
       this.started = true;
       this.startTimer();
@@ -166,9 +179,10 @@ window.addEventListener("load", function () {
         let timeString = this.padZero(minutes) + ":" + this.padZero(seconds);
 
         timerElement.textContent = timeString;
-        console.log(seconds);
+        // console.log(seconds);
         if (minutes === 0 && seconds === 0) {
           clearInterval(intervalId);
+          this.loose();
           return;
         }
       }, 1000);
@@ -181,19 +195,34 @@ window.addEventListener("load", function () {
     },
 
     loose() {
-      //auntMildred animation
-      setInterval(function () {
-        if (auntmildred.x > 500) {
-          auntMildred.x++;
-        }
-      }, 60);
+      //auntMildred animation on gamescreen
+      // auntMildred.onload = function(){
+      // setInterval(function () {
+      //   if (auntMildred.x > 500) {
+      //     auntMildred.x--;
+      //     ctx.drawImage(auntMildred, auntMildred.x, 300, 250, 250);
+      //     console.log("auntmildred.x:" + auntMildred.x);
+      //   }
+      // }, 60);}
+
+      backgroundMusic.pause();
+      snorringAudio.pause()
+      looseAudio.play();
 
       //Print loosing screen
-      ctx.fillStyle = "#9F8E72";
-      ctx.fillRect(0, 0, 1000, 550);
-      ctx.fillStyle = "#000000";
-      ctx.font = "20px Georgia";
-      ctx.fillText("You lost!!!", 10, 50);
+      // ctx.fillStyle = "#9F8E72";
+      // ctx.fillRect(0, 0, 1000, 550);
+      // ctx.fillStyle = "#000000";
+      // ctx.font = "20px Georgia";
+      // ctx.fillText("You lost!!!", 10, 50);
+
+        setInterval(function () {
+          if (auntMildred.x > 500) {
+            auntMildred.x--;
+            ctx.drawImage(auntMildredImg, auntMildred.x, 300, 250, 250);
+            console.log("auntmildred.x:" + auntMildred.x);
+          }
+        },1000);
     },
 
     win() {
@@ -203,6 +232,9 @@ window.addEventListener("load", function () {
       ctx.fillStyle = "#000000";
       ctx.font = "20px Georgia";
       ctx.fillText("You won!!!", 10, 50);
+      applauseAudio.play();
+      backgroundMusic.pause();
+      snorringAudio.pause();
     },
   };
 
@@ -261,6 +293,7 @@ window.addEventListener("load", function () {
           console.log("you clicked on an image!");
           if (clickableObjects[i].solved == false) {
             riddles[i].modal.show();
+            openRiddleAudio.play();
           }
         }
       }
@@ -280,11 +313,13 @@ window.addEventListener("load", function () {
       clickableObjects[0].solved = true;
       game.score += 1;
       console.log(game.score);
+      correctAnswerAudio.play();
       window.alert(
         "It seems that you dominate the English language, correct answer!"
       );
       if (game.score == 5) game.win();
     } else {
+      wrongAnswerAudio.play();
       console.log("wrong answer");
       window.alert("Wrong answer, try again");
     }
@@ -303,9 +338,11 @@ window.addEventListener("load", function () {
       clickableObjects[1].solved = true;
       game.score += 1;
       console.log(game.score);
+      correctAnswerAudio.play();
       window.alert("You're a genius! That's the correct answer");
       if (game.score == 5) game.win();
     } else {
+      wrongAnswerAudio.play();
       console.log("wrong answer");
       window.alert("Wrong answer, try again");
     }
@@ -324,9 +361,11 @@ window.addEventListener("load", function () {
       clickableObjects[2].solved = true;
       game.score += 1;
       console.log(game.score);
+      correctAnswerAudio.play();
       window.alert("Yes! That's right! You're good at this");
       if (game.score == 5) game.win();
     } else {
+      wrongAnswerAudio.play();
       console.log("wrong answer");
       window.alert("Wrong answer, try again");
     }
@@ -345,9 +384,11 @@ window.addEventListener("load", function () {
       clickableObjects[3].solved = true;
       game.score += 1;
       console.log(game.score);
+      correctAnswerAudio.play();
       window.alert("Correct answer!");
       if (game.score == 5) game.win();
     } else {
+      wrongAnswerAudio.play();
       console.log("wrong answer");
       window.alert("Wrooong!!!");
     }
@@ -366,9 +407,11 @@ window.addEventListener("load", function () {
       clickableObjects[4].solved = true;
       game.score += 1;
       console.log(game.score);
+      correctAnswerAudio.play();
       window.alert("Duh. Correct answer");
       if (game.score == 5) game.win();
     } else {
+      wrongAnswerAudio.play();
       console.log("wrong answer");
       window.alert("Wrong answer, try again");
     }
