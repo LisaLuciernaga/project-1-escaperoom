@@ -174,7 +174,7 @@ window.addEventListener("load", function () {
             score++;
         }
 
-        
+
 
 
 
