@@ -92,6 +92,8 @@ backgroundImg.src = "img/background.jpg";
 let game = {
     // objects: clickableObjects,
     score: 0,
+    started: false,
+    
     startGame (){
         //display game screen, call start timer, display score
         ctx.save();
