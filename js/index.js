@@ -112,15 +112,12 @@ window.addEventListener("load", function () {
     let snorringAudio = document.getElementById("snorring");
     let looseAudio = document.getElementById("loose");
     let applauseAudio = document.getElementById("applause");
+    let evilLaughAudio = document.getElementById("laugh");
     
     // Aunt Mildred
     let auntMildred = document.createElement('img');
     auntMildred.src = "img/auntmildred.png";
-    auntMildred.x = 1001;
-
-    // Create a new Image object
-    var auntMildredImg = new Image();
-    auntMildredImg.src = auntMildred.src;
+  
 
   let game = {
     score: 0,
@@ -163,6 +160,7 @@ window.addEventListener("load", function () {
       this.started = true;
       this.startTimer();
     },
+
     startTimer() {
       let minutes = 5;
       let seconds = 0;
@@ -195,34 +193,58 @@ window.addEventListener("load", function () {
     },
 
     loose() {
-      //auntMildred animation on gamescreen
-      // auntMildred.onload = function(){
-      // setInterval(function () {
-      //   if (auntMildred.x > 500) {
-      //     auntMildred.x--;
-      //     ctx.drawImage(auntMildred, auntMildred.x, 300, 250, 250);
-      //     console.log("auntmildred.x:" + auntMildred.x);
-      //   }
-      // }, 60);}
-
       backgroundMusic.pause();
       snorringAudio.pause()
       looseAudio.play();
 
+      let x = 1000;
+      intervalId = setInterval(() => {
+        if(x<400){
+          clearInterval(intervalId);
+        };
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        x--;
+        
+        //REPRINT ROOM
+        ctx.fillStyle = "grey";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(backgroundImg, 0, 0, canvas.width, canvas.height);
+        ctx.restore();
+        
+        ctx.drawImage(auntMildred, 1001, 300, 250, 250);
+        ctx.drawImage(wardrobe, 0, 70, 300, 450);
+        ctx.drawImage(picture, 700, 35, 200, 180);
+        ctx.drawImage(frames, 300, 40, 150, 160);
+        ctx.drawImage(comode, 260, 300, 200, 150);
+        ctx.drawImage(roundTable, 600, 300, 100, 150);
+        ctx.drawImage(vase, 598, 210, 80, 100);
+        ctx.drawImage(sideTable, 650, 470, 100, 80);
+        ctx.drawImage(denture, 685, 450, 30, 40);
+        ctx.drawImage(chandelier, 470, -40, 120, 200);
+        ctx.drawImage(suitcase, 47, 40, 200, 90);
+        ctx.drawImage(suitcasey, 65, 28, 152, 70);
+        
+        for (let i = 0; i < clickableObjects.length; i++) {
+          clickableObjects[i].print();
+        }
+        
+        //REPRINT ROOM
+        
+        ctx.drawImage(auntMildred, x, 250, 300, 300);
+      }, 10);
+      
+      
+      evilLaughAudio.play();
+      ctx.fillStyle = "black";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
       //Print loosing screen
       // ctx.fillStyle = "#9F8E72";
       // ctx.fillRect(0, 0, 1000, 550);
       // ctx.fillStyle = "#000000";
       // ctx.font = "20px Georgia";
       // ctx.fillText("You lost!!!", 10, 50);
-
-        setInterval(function () {
-          if (auntMildred.x > 500) {
-            auntMildred.x--;
-            ctx.drawImage(auntMildredImg, auntMildred.x, 300, 250, 250);
-            console.log("auntmildred.x:" + auntMildred.x);
-          }
-        },1000);
+      // ctx.drawImage(auntMildred, 500, 300, 250, 250);
     },
 
     win() {
@@ -266,11 +288,10 @@ window.addEventListener("load", function () {
   ctx.fillStyle = "#9F8E72";
   ctx.fillRect(0, 0, 1000, 550);
   ctx.fillStyle = "#000000";
-  ctx.font = "30px Blackadder ITC";
+  ctx.font = "30px sofia";
 
   ctx.fillText(startText1, 20, 420);
   ctx.fillText(startText2, 20, 480);
-
   ctx.drawImage(auntMildred, 500, 250, 90, 80);
 
   canvas.addEventListener("click", (e) => {
