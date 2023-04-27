@@ -93,6 +93,7 @@ let game = {
     // objects: clickableObjects,
     score: 0,
     started: false,
+    winCondition: false,
     
     startGame (){
         //display game screen, call start timer, display score
@@ -117,16 +118,21 @@ let game = {
         }
 
         this.started = true;
-        this.startTimer();
+        this.startTimer();        
+        this.displayScore();
+        console.log("intervalId timer",game.intervalId)
 
     },
     startTimer() {
+      
         let minutes = 5;
         let seconds = 0;
         const timerElement = document.getElementById("timer");
           
         let intervalId = setInterval(() => {
-          seconds--;
+            if( this.winCondition === false){
+
+            seconds--;
           
   
           if (seconds === -1) {
@@ -136,19 +142,37 @@ let game = {
   
           let timeString = this.padZero(minutes) + ":" + this.padZero(seconds);
   
-          timerElement.textContent = timeString;
-          console.log(seconds);
+          timerElement.textContent = "Time: " + timeString;
+        //   console.log(seconds);
           if (minutes === 0 && seconds === 0) {
             clearInterval(intervalId);
             return;
           }
+
+            } else {
+                clearInterval(intervalId) 
+            }
+          
         }, 1000);
-  
-        return intervalId;
+        
+        // if you win the time stops
+
       },
   
       padZero(num) {
         return num.toString().padStart(2, "0");
+      },
+
+      stopTime() {
+        clearInterval() 
+        
+
+      },
+
+      displayScore() {
+        let scoreToDisplay = document.getElementById("score");
+
+        scoreToDisplay.textContent = "Score: " + game.score;
       },
 
     loose() {
@@ -167,6 +191,7 @@ let game = {
         ctx.fillText("You lost!!!", 10, 50);    },
 
     win() {
+        this.winCondition = true;
       //Print winning screen
         ctx.fillStyle = "#9F8E72";
         ctx.fillRect(0, 0, 1000, 550);
@@ -245,7 +270,8 @@ let game = {
       console.log("correct answer!");
       clickableObjects[0].solved = true;
       game.score += 1;
-      console.log(game.score);
+      game.displayScore();
+      console.log("gameScore" , game.score);
       window.alert(
         "It seems that you dominate the English language, correct answer!"
       );
@@ -268,6 +294,7 @@ let game = {
       console.log("correct answer!");
       clickableObjects[1].solved = true;
       game.score += 1;
+      game.displayScore();
       console.log(game.score);
       window.alert("You're a genius! That's the correct answer");
       if(game.score == 5) game.win();
@@ -289,6 +316,7 @@ let game = {
       console.log("correct answer!");
       clickableObjects[2].solved = true;
       game.score += 1;
+      game.displayScore();
       console.log(game.score);
       window.alert("Yes! That's right! You're good at this");
       if(game.score == 5) game.win();
@@ -310,6 +338,7 @@ let game = {
       console.log("correct answer!");
       clickableObjects[3].solved = true;
       game.score += 1;
+      game.displayScore();
       console.log(game.score);
       window.alert("Correct answer!");
       if(game.score == 5) game.win();
@@ -331,6 +360,7 @@ let game = {
       console.log("correct answer!");
       clickableObjects[4].solved = true;
       game.score += 1;
+      game.displayScore();
       console.log(game.score);
       window.alert("Duh. Correct answer");
       if(game.score == 5) game.win();
