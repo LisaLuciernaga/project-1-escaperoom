@@ -44,14 +44,15 @@ canvas {
     align-items: center;
     display:flex;
     justify-content: center;
-    border: 5px solid #412c0229;
+    /* border: 5px solid #412c0229; */
     border-radius: 20px;
     box-sizing: border-box;
     margin: 0 auto; 
     padding: 18px 0; 
     width: 345px;
-    font-size: 40px;
+    font-size: 35px;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+    
     
     
     
@@ -66,14 +67,14 @@ canvas {
     align-items: center;
     display: flex;
     justify-content: center;
-    border: 5px solid #412c0229;
+    /* border: 5px solid #412c0229; */
     border-radius: 20px;
     box-sizing: border-box;
     height: 100px;
     margin: 0 auto;
     padding: 18px 0;
     width: 345px;
-    font-size: 40px;
+    font-size: 35px;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
     
   }
