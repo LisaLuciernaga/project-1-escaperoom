@@ -56,7 +56,7 @@ window.addEventListener("load", function () {
       this.solved = false;
     }
 
-    onHover() {
+    // onHover() {
       //display object name - use onmouseover on the img for this?(https://www.w3schools.com/jsref/event_onmouseover.asp)
       //   if (
       //     x > image.x &&
@@ -64,7 +64,7 @@ window.addEventListener("load", function () {
       //   ) {
       //     //Display image name
       //   }
-    }
+    
 
     print() {
       ctx.drawImage(
@@ -77,46 +77,75 @@ window.addEventListener("load", function () {
     }
   }
 
+
   const clickableObjects = [
-    new ClickableObject(110, 140, 0, 400, "dog", dog, 0),
-    new ClickableObject(150, 350, 450, 150, "clock", clock, 0),
-    new ClickableObject(80, 120, 260, 200, "phone", phone, 0),
-    new ClickableObject(50, 70, 350, 240, "urn", urn, 0),
-    new ClickableObject(200, 250, 750, 300, "grandma", grandma, 0),
-  ];
+    new ClickableObject (100, 150, 0, 400, "dog", dog, 0),
+    new ClickableObject (150, 350, 450, 150, "clock", clock, 0),
+    new ClickableObject (80, 120, 260, 200, "phone", phone, 0),
+    new ClickableObject (50, 70, 350, 240, "urn", urn, 0),
+    new ClickableObject (200, 250, 750, 300, "grandma", grandma, 0)
+];
 
-  let backgroundImg = document.createElement("img");
-  backgroundImg.src = "img/background.jpg";
+let backgroundImg = document.createElement("img");
+backgroundImg.src = "img/background.jpg";
 
-  let game = {
+let game = {
     // objects: clickableObjects,
     score: 0,
-    started: false,
-    startGame() {
-      //display game screen, call start timer, display score
-      ctx.save();
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    startGame (){
+        //display game screen, call start timer, display score
+        ctx.save();
+        ctx.clearRect(0,0, canvas.width, canvas.height);
+        
+        // Print Room Canvas
+        ctx.fillStyle = "grey";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(backgroundImg, 0, 0, canvas.width, canvas.height);
+        ctx.restore();
 
-      // Print Room Canvas
-      ctx.fillStyle = "grey";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(backgroundImg, 0, 0, canvas.width, canvas.height);
-      ctx.restore();
+        //Print non-clickable objects
+        ctx.drawImage(wardrobe, 0, 70, 300, 450);
+        ctx.drawImage(painting, 600, 20, 170, 200);
+        ctx.drawImage(frames, 300, 30, 170, 200);
+        ctx.drawImage(comode, 260, 300, 200, 150);
 
-      //Print non-clickable objects
-      ctx.drawImage(wardrobe, 0, 70, 300, 450);
-      ctx.drawImage(painting, 600, 20, 170, 200);
-      ctx.drawImage(frames, 300, 30, 170, 200);
-      ctx.drawImage(comode, 260, 300, 200, 150);
+        //Print objects on top of background
+        for (let i = 0; i < clickableObjects.length; i++){
+            clickableObjects[i].print();
+        }
 
-      //Print objects on top of background
-      for (let i = 0; i < clickableObjects.length; i++) {
-        clickableObjects[i].print();
-      }
+        this.started = true;
 
-      this.started = true;
     },
-    startTimer() {},
+    startTimer () {
+        let minutes = 0;
+    let seconds = 0;
+    const timerElement = document.getElementById("timer")
+
+    let intervalId = setInterval(() => {
+        seconds++;
+
+        if (seconds === 60) {
+            seconds = 0;
+            minutes++;
+        };
+
+        let timeString = this.padZero(minutes) + ":" + this.padZero(seconds );
+       
+        timerElement.textContent = timeString;
+        console.log(seconds)
+        if (minutes === 5) {
+            clearInterval(intervalId);
+            return;
+        }
+    }, 50);
+
+    return intervalId;
+},
+
+ padZero(num) {
+    return num.toString().padStart(2, "0");
+    },
 
     loose() {
         //auntMildred animation
@@ -141,8 +170,12 @@ window.addEventListener("load", function () {
         ctx.font = "20px Georgia";
         ctx.fillText("You won!!!", 10, 50);
     },
-  };
+}
 
+
+
+
+ 
   //Class riddle
   class Riddle {
     constructor(name, solution, modal) {

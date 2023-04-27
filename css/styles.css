@@ -8,5 +8,15 @@ canvas {
     margin-left: auto;
     margin-right: auto;
     display: block;
+<<<<<<< HEAD
     border: 4px solid black;
+=======
+    border: 4px solid blue;
+}
+
+#timer {
+   
+    border: 2px solid green
+
+>>>>>>> dev
 }
