@@ -4,10 +4,8 @@ window.addEventListener("load", function () {
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
 
-  let startText1 =
-    "You're visiting your grandma and she asked for your help with her riddle contest.";
-  let startText2 =
-    "She's a little confused and scattered the riddles all over her living room..."
+  let startText1 = "You're visiting your grandma and she asked for your help with her riddle contest.";
+  let startText2 = "She's a little confused and scattered the riddles all over her living room...";
   let startTextClick = "(click anywhere to begin)";
   let startText3 = "Escaping Aunt Mildred";
 
@@ -16,6 +14,9 @@ window.addEventListener("load", function () {
 
   let winTrophy = document.createElement("img");
   winTrophy.src = "img/WinTrophy.gif";
+
+  let trophy = document.createElement("img");
+  trophy.src = "img/trophy.png";
 
   //create all images for clickable objects
   let dog = document.createElement("img");
@@ -274,15 +275,15 @@ window.addEventListener("load", function () {
     },
 
     win() {
-        this.winCondition = true;
+      this.winCondition = true;
       //Print winning screen
       ctx.fillStyle = "#9F8E72";
       ctx.fillRect(0, 0, 1000, 550);
-      ctx.fillStyle = "#a8986a";
+      ctx.fillStyle = "#000000";
       ctx.font = "40px Papyrus";
       ctx.fillText("You won!!!", 380, 100,);
 
-      ctx.drawImage(winTrophy, 300, 200, 350, 350);
+      ctx.drawImage(trophy, 300, 150, 370, 350);
 
       applauseAudio.play();
       backgroundMusic.pause();
