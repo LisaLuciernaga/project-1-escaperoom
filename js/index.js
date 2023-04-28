@@ -128,11 +128,9 @@ window.addEventListener("load", function () {
     winCondition: false,
     
     startGame (){
-        //display game screen, call start timer, display score
-        ctx.save();
-        ctx.clearRect(0,0, canvas.width, canvas.height);
-
-    
+      //display game screen, call start timer, display score
+      ctx.save();
+      ctx.clearRect(0,0, canvas.width, canvas.height);
 
       // Print Room Canvas
       ctx.fillStyle = "grey";
@@ -159,10 +157,8 @@ window.addEventListener("load", function () {
         clickableObjects[i].print();
       }
 
-      //Start backgroundmusic
       backgroundMusic.play();
       snorringAudio.play();
-
       this.started = true;
       this.startTimer();
       this.displayScore();
@@ -170,23 +166,18 @@ window.addEventListener("load", function () {
     },
 
     startTimer() {
-      
         let minutes = 0;
         let seconds = 3;
         const timerElement = document.getElementById("timer");
           
         let intervalId = setInterval(() => {
             if( this.winCondition === false){
-
             seconds--;
-  
           if (seconds === -1) {
             seconds = 59;
             minutes--;
           }
-  
           let timeString = this.padZero(minutes) + ":" + this.padZero(seconds);
-  
           timerElement.textContent = "Time: " + timeString;
         //   console.log(seconds);
           if (minutes === 0 && seconds === 0) {
@@ -194,43 +185,42 @@ window.addEventListener("load", function () {
             this.loose()
             return;
           }
-
             } else {
                 clearInterval(intervalId) 
             }
-          
         }, 1000);
-        
-        // if you win the time stops
-
+        // if you win the timer stops
       },
   
-      padZero(num) {
-        return num.toString().padStart(2, "0");
-      },
+      padZero(num) {return num.toString().padStart(2, "0");},
 
-      stopTime() {
-        clearInterval() 
-      },
+      stopTime() {clearInterval()},
 
       displayScore() {
         let scoreToDisplay = document.getElementById("score");
-
         scoreToDisplay.textContent = "Score: " + game.score;
       },
 
-
     loose() {
+      for (let i = 0; i < clickableObjects.length; i++) {
+        clickableObjects[i].solve = true;
+        console.log("all riddles solved")
+      }
+
       backgroundMusic.pause();
-      snorringAudio.pause()
+      snorringAudio.pause();
       looseAudio.play();
-
+      // let auntMildredEntered = false;
       let x = 1000;
-      intervalId = setInterval(() => {
-        if(x<400){
-          clearInterval(intervalId);
-        };
 
+      intervalId = setInterval(() => {
+        if(x<350){
+          clearInterval(intervalId);
+          // auntMildredEntered = true;
+          // console.log(auntMildredEntered);
+          this.finishGame(ctx);
+        };
+        
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         x--;
         for (let i = 0; i < clickableObjects.length; i++) {
@@ -242,7 +232,7 @@ window.addEventListener("load", function () {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(backgroundImg, 0, 0, canvas.width, canvas.height);
         ctx.restore();
-
+        
         ctx.drawImage(auntMildred, 1001, 300, 250, 250);
         ctx.drawImage(wardrobe, 0, 70, 300, 450);
         ctx.drawImage(picture, 700, 35, 200, 180);
@@ -255,27 +245,32 @@ window.addEventListener("load", function () {
         ctx.drawImage(chandelier, 470, -40, 120, 200);
         ctx.drawImage(suitcase, 47, 40, 200, 90);
         ctx.drawImage(suitcasey, 65, 28, 152, 70);
-
+        
         for (let i = 0; i < clickableObjects.length; i++) {
           clickableObjects[i].print();
         }
-        //REPRINT ROOM
+        //Print auntMildred
+        ctx.drawImage(auntMildred, x, 250, 300, 300); 
+      }, 10)
 
-        ctx.drawImage(auntMildred, x, 250, 300, 300);
+    },
 
-      }, 10);
-      
+    finishGame(ctx){
       evilLaughAudio.play();
       ctx.fillStyle = "black";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      
-    // // Print loosing screen
-    //  ctx.fillStyle = "#9F8E72";
-    //  ctx.fillRect(0, 0, 1000, 550);
-    //  ctx.fillStyle = "#000000";
-    //  ctx.font = "20px Georgia";
-    //  ctx.fillText("You lost!!!", 10, 50);
-    //  ctx.drawImage(auntMildred, 500, 300, 250, 250);
+      console.log("game finished")
+      ctx.fillStyle = "#000000";
+      ctx.font = "24px Papyrus";
+      ctx.fillText(startText1, 20, 420);
+      this.printLooseScreen();
+    },
+  
+    printLooseScreen() {
+      if(auntMildredEntered == true){
+        ctx.font = "20px Georgia"
+        ctx.fillText("You lost!!!", 10, 50)
+      }
     },
 
     win() {
@@ -329,7 +324,7 @@ window.addEventListener("load", function () {
   ctx.fillText(startText2, 20, 480);
   ctx.fillText(startText3, 330, 100, 800);
 
-  auntMildred.onload =() =>{ctx.drawImage(auntMildred, 350, 150, 200, 200)};
+  auntMildred.onload =() => {ctx.drawImage(auntMildred, 350, 150, 200, 200)};
 
   canvas.addEventListener("click", (e) => {
     //If game hasn't started yet, start game

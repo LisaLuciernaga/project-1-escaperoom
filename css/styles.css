@@ -10,6 +10,7 @@ canvas {
     margin-right: auto;
     margin-top: 80px;
     display: block;
+    border: solid 3px black;
 
     /* border: 4px solid black; */
 
