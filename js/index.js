@@ -14,7 +14,7 @@ window.addEventListener("load", function () {
   auntMildred.src = "img/auntMildred.png";
 
   let winTrophy = document.createElement("img");
-  winTrophy.src = "img/winTrophy.gif";
+  winTrophy.src = "img/WinTrophy.gif";
 
   //create all images for clickable objects
   let dog = document.createElement("img");
@@ -260,10 +260,11 @@ window.addEventListener("load", function () {
       ctx.fillStyle = "#9F8E72";
       ctx.fillRect(0, 0, 1000, 550);
       ctx.fillStyle = "#000000";
-      ctx.font = "20px Georgia";
-      ctx.fillText("You won!!!", 10, 50);
+      ctx.font = "40px Papyrus";
+      ctx.fillText("You won!!!", 380, 100,);
 
-      winTrophy.onload =() =>{ctx.drawImage(winTrophy, 400, 200, 200, 200)};
+      ctx.drawImage(winTrophy, 300, 200, 350, 350);
+
       applauseAudio.play();
       backgroundMusic.pause();
       snorringAudio.pause();
@@ -298,14 +299,14 @@ window.addEventListener("load", function () {
   ctx.fillStyle = "#9F8E72";
   ctx.fillRect(0, 0, 1000, 550);
   ctx.fillStyle = "#000000";
-  ctx.font = "30px sofia";
+  ctx.font = "24px Papyrus";
 
   ctx.fillText(startText1, 20, 420);
   ctx.fillText(startText2, 20, 480);
-  ctx.fillText(startText3, 300, 100, 800);
+  ctx.fillText(startText3, 330, 100, 800);
 
   auntMildred.onload =() =>{ctx.drawImage(auntMildred, 350, 150, 200, 200)};
-  
+
   canvas.addEventListener("click", (e) => {
     //If game hasn't started yet, start game
     if (game.started == false) {
