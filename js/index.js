@@ -167,8 +167,8 @@ window.addEventListener("load", function () {
     },
 
     startTimer() {
-        let minutes = 0;
-        let seconds = 5;
+        let minutes = 5;
+        let seconds = 0;
         const timerElement = document.getElementById("timer");
           
         let intervalId = setInterval(() => {
