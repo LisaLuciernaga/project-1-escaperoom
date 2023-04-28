@@ -121,20 +121,18 @@ window.addEventListener("load", function () {
     let looseAudio = document.getElementById("loose");
     let applauseAudio = document.getElementById("applause");
     let evilLaughAudio = document.getElementById("laugh");
-    
-    // Aunt Mildred
-    // let auntMildred = document.createElement('img');
-    // auntMildred.src = "img/auntmildred.png";
-  
 
   let game = {
     score: 0,
     started: false,
+    winCondition: false,
+    
+    startGame (){
+        //display game screen, call start timer, display score
+        ctx.save();
+        ctx.clearRect(0,0, canvas.width, canvas.height);
 
-    startGame() {
-      //display game screen, call start timer, display score
-      ctx.save();
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
 
       // Print Room Canvas
       ctx.fillStyle = "grey";
@@ -167,38 +165,60 @@ window.addEventListener("load", function () {
 
       this.started = true;
       this.startTimer();
+      this.displayScore();
+      console.log("intervalId timer",game.intervalId)
     },
 
     startTimer() {
-      let minutes = 0;
-      let seconds = 5;
-      const timerElement = document.getElementById("timer");
+      
+        let minutes = 0;
+        let seconds = 3;
+        const timerElement = document.getElementById("timer");
+          
+        let intervalId = setInterval(() => {
+            if( this.winCondition === false){
 
-      let intervalId = setInterval(() => {
-        seconds--;
+            seconds--;
+  
+          if (seconds === -1) {
+            seconds = 59;
+            minutes--;
+          }
+  
+          let timeString = this.padZero(minutes) + ":" + this.padZero(seconds);
+  
+          timerElement.textContent = "Time: " + timeString;
+        //   console.log(seconds);
+          if (minutes === 0 && seconds === 0) {
+            clearInterval(intervalId);
+            this.loose()
+            return;
+          }
 
-        if (seconds === -1) {
-          seconds = 59;
-          minutes--;
-        }
+            } else {
+                clearInterval(intervalId) 
+            }
+          
+        }, 1000);
+        
+        // if you win the time stops
 
-        let timeString = this.padZero(minutes) + ":" + this.padZero(seconds);
+      },
+  
+      padZero(num) {
+        return num.toString().padStart(2, "0");
+      },
 
-        timerElement.textContent = timeString;
-        // console.log(seconds);
-        if (minutes === 0 && seconds === 0) {
-          clearInterval(intervalId);
-          this.loose();
-          return;
-        }
-      }, 1000);
+      stopTime() {
+        clearInterval() 
+      },
 
-      return intervalId;
-    },
+      displayScore() {
+        let scoreToDisplay = document.getElementById("score");
 
-    padZero(num) {
-      return num.toString().padStart(2, "0");
-    },
+        scoreToDisplay.textContent = "Score: " + game.score;
+      },
+
 
     loose() {
       backgroundMusic.pause();
@@ -210,15 +230,19 @@ window.addEventListener("load", function () {
         if(x<400){
           clearInterval(intervalId);
         };
+
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         x--;
+        for (let i = 0; i < clickableObjects.length; i++) {
+          clickableObjects[i].print();
+        }
         
         //REPRINT ROOM
         ctx.fillStyle = "grey";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(backgroundImg, 0, 0, canvas.width, canvas.height);
         ctx.restore();
-        
+
         ctx.drawImage(auntMildred, 1001, 300, 250, 250);
         ctx.drawImage(wardrobe, 0, 70, 300, 450);
         ctx.drawImage(picture, 700, 35, 200, 180);
@@ -231,31 +255,31 @@ window.addEventListener("load", function () {
         ctx.drawImage(chandelier, 470, -40, 120, 200);
         ctx.drawImage(suitcase, 47, 40, 200, 90);
         ctx.drawImage(suitcasey, 65, 28, 152, 70);
-        
+
         for (let i = 0; i < clickableObjects.length; i++) {
           clickableObjects[i].print();
         }
-        
         //REPRINT ROOM
-        
+
         ctx.drawImage(auntMildred, x, 250, 300, 300);
+
       }, 10);
-      
       
       evilLaughAudio.play();
       ctx.fillStyle = "black";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       
-      //Print loosing screen
-      // ctx.fillStyle = "#9F8E72";
-      // ctx.fillRect(0, 0, 1000, 550);
-      // ctx.fillStyle = "#000000";
-      // ctx.font = "20px Georgia";
-      // ctx.fillText("You lost!!!", 10, 50);
-      // ctx.drawImage(auntMildred, 500, 300, 250, 250);
+    // // Print loosing screen
+    //  ctx.fillStyle = "#9F8E72";
+    //  ctx.fillRect(0, 0, 1000, 550);
+    //  ctx.fillStyle = "#000000";
+    //  ctx.font = "20px Georgia";
+    //  ctx.fillText("You lost!!!", 10, 50);
+    //  ctx.drawImage(auntMildred, 500, 300, 250, 250);
     },
 
     win() {
+        this.winCondition = true;
       //Print winning screen
       ctx.fillStyle = "#9F8E72";
       ctx.fillRect(0, 0, 1000, 550);
@@ -346,6 +370,7 @@ window.addEventListener("load", function () {
       console.log("correct answer!");
       clickableObjects[0].solved = true;
       game.score += 1;
+      game.displayScore();
       console.log(game.score);
       correctAnswerAudio.play();
       window.alert(
@@ -371,6 +396,7 @@ window.addEventListener("load", function () {
       console.log("correct answer!");
       clickableObjects[1].solved = true;
       game.score += 1;
+      game.displayScore();
       console.log(game.score);
       correctAnswerAudio.play();
       window.alert("You're a genius! That's the correct answer");
@@ -394,6 +420,7 @@ window.addEventListener("load", function () {
       console.log("correct answer!");
       clickableObjects[2].solved = true;
       game.score += 1;
+      game.displayScore();
       console.log(game.score);
       correctAnswerAudio.play();
       window.alert("Yes! That's right! You're good at this");
@@ -417,6 +444,7 @@ window.addEventListener("load", function () {
       console.log("correct answer!");
       clickableObjects[3].solved = true;
       game.score += 1;
+      game.displayScore();
       console.log(game.score);
       correctAnswerAudio.play();
       window.alert("Correct answer!");
@@ -440,6 +468,7 @@ window.addEventListener("load", function () {
       console.log("correct answer!");
       clickableObjects[4].solved = true;
       game.score += 1;
+      game.displayScore();
       console.log(game.score);
       correctAnswerAudio.play();
       window.alert("Duh. Correct answer");
