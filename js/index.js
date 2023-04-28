@@ -3,13 +3,23 @@ window.addEventListener("load", function () {
 
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
-  let startText =
-    "You're visiting your grandma and she asked for your help with her riddle contest. She's a little confused and scattered the riddles all over her living room... (click anywhere to begin)";
+
+  let startText1 =
+    "You're visiting your grandma and she asked for your help with her riddle contest.";
+  let startText2 =
+    "She's a little confused and scattered the riddles all over her living room... (click anywhere to begin)";
+  let startText3 = "Escaping Aunt Mildred";
+
+  let auntMildred = document.createElement("img");
+  auntMildred.src = "img/auntMildred.png";
+
+  let winTrophy = document.createElement("img");
+  winTrophy.src = "img/winTrophy.gif";
 
   //create all images for clickable objects
   let dog = document.createElement("img");
   dog.src = "img/dog.png";
-  dog.text = "Mrs. Chaps - taxidermed"; //Text to display when hovering mouse
+  dog.text = "Mr. Chaps - taxidermed"; //Text to display when hovering mouse
 
   let grandma = document.createElement("img");
   grandma.src = "img/grandma.png";
@@ -32,9 +42,9 @@ window.addEventListener("load", function () {
   frames.src = "img/frames.png";
   frames.text = "Some old photos"; //Text to display when hovering mouse
 
-  let painting = document.createElement("img");
-  painting.src = "img/painting.png";
-  painting.text = "Grandma, when she was young & beautiful";
+  let picture = document.createElement("img");
+  picture.src = "img/picture.png";
+  picture.text = "Grandma, when she was young & beautiful";
 
   let wardrobe = document.createElement("img");
   wardrobe.src = "img/wardrobe.png";
@@ -44,28 +54,39 @@ window.addEventListener("load", function () {
   comode.src = "img/comode.png";
   comode.text = "Bachelor's chest";
 
+  let roundTable = document.createElement("img");
+  roundTable.src = "img/roundTable.png";
+
+  let vase = document.createElement("img");
+  vase.src = "img/vase.png";
+
+  let sideTable = document.createElement("img");
+  sideTable.src = "img/sideTable.png";
+
+  let denture = document.createElement("img");
+  denture.src = "img/denture.png";
+
+  let chandelier = document.createElement("img");
+  chandelier.src = "img/chandelier.png";
+
+  let suitcase = document.createElement("img");
+  suitcase.src = "img/suitcase.png";
+
+  let suitcasey = document.createElement("img");
+  suitcasey.src = "img/suitcasey.png";
+
+  
   class ClickableObject {
-    constructor(width, height, x, y, name, image, riddleId) {
+    constructor(width, height, x, y, name, image) {
       this.width = width;
       this.height = height;
       this.positionX = x;
       this.positionY = y;
       this.name = name;
       this.image = image;
-      this.riddle = riddleId;
       this.solved = false;
     }
-
-    // onHover() {
-      //display object name - use onmouseover on the img for this?(https://www.w3schools.com/jsref/event_onmouseover.asp)
-      //   if (
-      //     x > image.x &&
-      //     x < (image.x + image.width && y > image.y && y < image.y + image.height)
-      //   ) {
-      //     //Display image name
-      //   }
     
-
     print() {
       ctx.drawImage(
         this.image,
@@ -73,24 +94,35 @@ window.addEventListener("load", function () {
         this.positionY,
         this.width,
         this.height
-      );
+        );
+      }
     }
-  }
+    
+    const clickableObjects = [
+      new ClickableObject(100, 150, 0, 400, "dog", dog),
+      new ClickableObject(150, 350, 450, 150, "clock", clock),
+      new ClickableObject(80, 120, 260, 200, "phone", phone),
+      new ClickableObject(50, 70, 350, 240, "urn", urn),
+      new ClickableObject(200, 250, 750, 300, "grandma", grandma),
+    ];
+    
+    let backgroundImg = document.createElement("img");
+    backgroundImg.src = "img/background.jpg";
 
+    //Create audios
+    let backgroundMusic = document.getElementById("backgroundmusic");
+    backgroundMusic.loop = true;
 
-  const clickableObjects = [
-    new ClickableObject (100, 150, 0, 400, "dog", dog, 0),
-    new ClickableObject (150, 350, 450, 150, "clock", clock, 0),
-    new ClickableObject (80, 120, 260, 200, "phone", phone, 0),
-    new ClickableObject (50, 70, 350, 240, "urn", urn, 0),
-    new ClickableObject (200, 250, 750, 300, "grandma", grandma, 0)
-];
+    let openRiddleAudio = document.getElementById("openriddle");
+    let closeRiddleAudio = document.getElementById("closeriddle");
+    let correctAnswerAudio = document.getElementById("correctanswer");
+    let wrongAnswerAudio = document.getElementById("wronganswer");
+    let snorringAudio = document.getElementById("snorring");
+    let looseAudio = document.getElementById("loose");
+    let applauseAudio = document.getElementById("applause");
+    let evilLaughAudio = document.getElementById("laugh");
 
-let backgroundImg = document.createElement("img");
-backgroundImg.src = "img/background.jpg";
-
-let game = {
-    // objects: clickableObjects,
+  let game = {
     score: 0,
     started: false,
     winCondition: false,
@@ -99,41 +131,54 @@ let game = {
         //display game screen, call start timer, display score
         ctx.save();
         ctx.clearRect(0,0, canvas.width, canvas.height);
-        
-        // Print Room Canvas
-        ctx.fillStyle = "grey";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(backgroundImg, 0, 0, canvas.width, canvas.height);
-        ctx.restore();
 
-        //Print non-clickable objects
-        ctx.drawImage(wardrobe, 0, 70, 300, 450);
-        ctx.drawImage(painting, 600, 20, 170, 200);
-        ctx.drawImage(frames, 300, 30, 170, 200);
-        ctx.drawImage(comode, 260, 300, 200, 150);
+    
 
-        //Print objects on top of background
-        for (let i = 0; i < clickableObjects.length; i++){
-            clickableObjects[i].print();
-        }
+      // Print Room Canvas
+      ctx.fillStyle = "grey";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(backgroundImg, 0, 0, canvas.width, canvas.height);
+      ctx.restore();
 
-        this.started = true;
-        this.startTimer();        
-        this.displayScore();
-        console.log("intervalId timer",game.intervalId)
+      //Print non-clickable objects
+      ctx.drawImage(auntMildred, 1001, 300, 250, 250);
+      ctx.drawImage(wardrobe, 0, 70, 300, 450);
+      ctx.drawImage(picture, 700, 35, 200, 180);
+      ctx.drawImage(frames, 300, 40, 150, 160);
+      ctx.drawImage(comode, 260, 300, 200, 150);
+      ctx.drawImage(roundTable, 600, 300, 100, 150);
+      ctx.drawImage(vase, 598, 210, 80, 100);
+      ctx.drawImage(sideTable, 650, 470, 100, 80);
+      ctx.drawImage(denture, 685, 450, 30, 40);
+      ctx.drawImage(chandelier, 470, -40, 120, 200);
+      ctx.drawImage(suitcase, 47, 40, 200, 90);
+      ctx.drawImage(suitcasey, 65, 28, 152, 70);
 
+      //Print objects on top of background
+      for (let i = 0; i < clickableObjects.length; i++) {
+        clickableObjects[i].print();
+      }
+
+      //Start backgroundmusic
+      backgroundMusic.play();
+      snorringAudio.play();
+
+      this.started = true;
+      this.startTimer();
+      this.displayScore();
+      console.log("intervalId timer",game.intervalId)
     },
+
     startTimer() {
       
-        let minutes = 5;
-        let seconds = 0;
+        let minutes = 0;
+        let seconds = 3;
         const timerElement = document.getElementById("timer");
           
         let intervalId = setInterval(() => {
             if( this.winCondition === false){
 
             seconds--;
-          
   
           if (seconds === -1) {
             seconds = 59;
@@ -146,6 +191,7 @@ let game = {
         //   console.log(seconds);
           if (minutes === 0 && seconds === 0) {
             clearInterval(intervalId);
+            this.loose()
             return;
           }
 
@@ -165,8 +211,6 @@ let game = {
 
       stopTime() {
         clearInterval() 
-        
-
       },
 
       displayScore() {
@@ -175,36 +219,81 @@ let game = {
         scoreToDisplay.textContent = "Score: " + game.score;
       },
 
-    loose() {
-        //auntMildred animation
-        setInterval(function () {
-            if (auntmildred.x > 500){
-                auntMildred.x++
-            }
-        }, 60);
 
-        //Print loosing screen
-        ctx.fillStyle = "#9F8E72";
-        ctx.fillRect(0, 0, 1000, 550);
-        ctx.fillStyle = "#000000";
-        ctx.font = "20px Georgia";
-        ctx.fillText("You lost!!!", 10, 50);    },
+    loose() {
+      backgroundMusic.pause();
+      snorringAudio.pause()
+      looseAudio.play();
+
+      let x = 1000;
+      intervalId = setInterval(() => {
+        if(x<400){
+          clearInterval(intervalId);
+        };
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        x--;
+        for (let i = 0; i < clickableObjects.length; i++) {
+          clickableObjects[i].print();
+        }
+        
+        //REPRINT ROOM
+        ctx.fillStyle = "grey";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(backgroundImg, 0, 0, canvas.width, canvas.height);
+        ctx.restore();
+
+        ctx.drawImage(auntMildred, 1001, 300, 250, 250);
+        ctx.drawImage(wardrobe, 0, 70, 300, 450);
+        ctx.drawImage(picture, 700, 35, 200, 180);
+        ctx.drawImage(frames, 300, 40, 150, 160);
+        ctx.drawImage(comode, 260, 300, 200, 150);
+        ctx.drawImage(roundTable, 600, 300, 100, 150);
+        ctx.drawImage(vase, 598, 210, 80, 100);
+        ctx.drawImage(sideTable, 650, 470, 100, 80);
+        ctx.drawImage(denture, 685, 450, 30, 40);
+        ctx.drawImage(chandelier, 470, -40, 120, 200);
+        ctx.drawImage(suitcase, 47, 40, 200, 90);
+        ctx.drawImage(suitcasey, 65, 28, 152, 70);
+
+        for (let i = 0; i < clickableObjects.length; i++) {
+          clickableObjects[i].print();
+        }
+        //REPRINT ROOM
+
+        ctx.drawImage(auntMildred, x, 250, 300, 300);
+
+      }, 10);
+      
+      evilLaughAudio.play();
+      ctx.fillStyle = "black";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+    // // Print loosing screen
+    //  ctx.fillStyle = "#9F8E72";
+    //  ctx.fillRect(0, 0, 1000, 550);
+    //  ctx.fillStyle = "#000000";
+    //  ctx.font = "20px Georgia";
+    //  ctx.fillText("You lost!!!", 10, 50);
+    //  ctx.drawImage(auntMildred, 500, 300, 250, 250);
+    },
 
     win() {
         this.winCondition = true;
       //Print winning screen
-        ctx.fillStyle = "#9F8E72";
-        ctx.fillRect(0, 0, 1000, 550);
-        ctx.fillStyle = "#000000";
-        ctx.font = "20px Georgia";
-        ctx.fillText("You won!!!", 10, 50);
+      ctx.fillStyle = "#9F8E72";
+      ctx.fillRect(0, 0, 1000, 550);
+      ctx.fillStyle = "#000000";
+      ctx.font = "20px Georgia";
+      ctx.fillText("You won!!!", 10, 50);
+
+      winTrophy.onload =() =>{ctx.drawImage(winTrophy, 400, 200, 200, 200)};
+      applauseAudio.play();
+      backgroundMusic.pause();
+      snorringAudio.pause();
     },
-}
+  };
 
-
-
-
- 
   //Class riddle
   class Riddle {
     constructor(name, solution, modal) {
@@ -218,7 +307,11 @@ let game = {
   const riddles = [
     new Riddle(riddle1, "eat", new bootstrap.Modal("#riddle1")),
     new Riddle(riddle2, "2", new bootstrap.Modal("#riddle2")),
-    new Riddle(riddle3, "what would your brother say?", new bootstrap.Modal("#riddle3")),
+    new Riddle(
+      riddle3,
+      "what would your brother say?",
+      new bootstrap.Modal("#riddle3")
+    ),
     new Riddle(riddle4, "5 minutes", new bootstrap.Modal("#riddle4")),
     new Riddle(riddle5, "david", new bootstrap.Modal("#riddle5")),
   ];
@@ -229,9 +322,14 @@ let game = {
   ctx.fillStyle = "#9F8E72";
   ctx.fillRect(0, 0, 1000, 550);
   ctx.fillStyle = "#000000";
-  ctx.font = "20px Georgia";
-  ctx.fillText(startText, 10, 50);
+  ctx.font = "30px sofia";
 
+  ctx.fillText(startText1, 20, 420);
+  ctx.fillText(startText2, 20, 480);
+  ctx.fillText(startText3, 300, 100, 800);
+
+  auntMildred.onload =() =>{ctx.drawImage(auntMildred, 350, 150, 200, 200)};
+  
   canvas.addEventListener("click", (e) => {
     //If game hasn't started yet, start game
     if (game.started == false) {
@@ -252,6 +350,7 @@ let game = {
           console.log("you clicked on an image!");
           if (clickableObjects[i].solved == false) {
             riddles[i].modal.show();
+            openRiddleAudio.play();
           }
         }
       }
@@ -271,12 +370,14 @@ let game = {
       clickableObjects[0].solved = true;
       game.score += 1;
       game.displayScore();
-      console.log("gameScore" , game.score);
+      console.log(game.score);
+      correctAnswerAudio.play();
       window.alert(
         "It seems that you dominate the English language, correct answer!"
       );
-      if(game.score == 5) game.win();
+      if (game.score == 5) game.win();
     } else {
+      wrongAnswerAudio.play();
       console.log("wrong answer");
       window.alert("Wrong answer, try again");
     }
@@ -296,9 +397,11 @@ let game = {
       game.score += 1;
       game.displayScore();
       console.log(game.score);
+      correctAnswerAudio.play();
       window.alert("You're a genius! That's the correct answer");
-      if(game.score == 5) game.win();
+      if (game.score == 5) game.win();
     } else {
+      wrongAnswerAudio.play();
       console.log("wrong answer");
       window.alert("Wrong answer, try again");
     }
@@ -318,9 +421,11 @@ let game = {
       game.score += 1;
       game.displayScore();
       console.log(game.score);
+      correctAnswerAudio.play();
       window.alert("Yes! That's right! You're good at this");
-      if(game.score == 5) game.win();
+      if (game.score == 5) game.win();
     } else {
+      wrongAnswerAudio.play();
       console.log("wrong answer");
       window.alert("Wrong answer, try again");
     }
@@ -340,9 +445,11 @@ let game = {
       game.score += 1;
       game.displayScore();
       console.log(game.score);
+      correctAnswerAudio.play();
       window.alert("Correct answer!");
-      if(game.score == 5) game.win();
+      if (game.score == 5) game.win();
     } else {
+      wrongAnswerAudio.play();
       console.log("wrong answer");
       window.alert("Wrooong!!!");
     }
@@ -362,10 +469,11 @@ let game = {
       game.score += 1;
       game.displayScore();
       console.log(game.score);
+      correctAnswerAudio.play();
       window.alert("Duh. Correct answer");
-      if(game.score == 5) game.win();
-    } 
-    else {
+      if (game.score == 5) game.win();
+    } else {
+      wrongAnswerAudio.play();
       console.log("wrong answer");
       window.alert("Wrong answer, try again");
     }
