@@ -7,7 +7,8 @@ window.addEventListener("load", function () {
   let startText1 =
     "You're visiting your grandma and she asked for your help with her riddle contest.";
   let startText2 =
-    "She's a little confused and scattered the riddles all over her living room... (click anywhere to begin)";
+    "She's a little confused and scattered the riddles all over her living room..."
+  let startTextClick = "(click anywhere to begin)";
   let startText3 = "Escaping Aunt Mildred";
 
   let auntMildred = document.createElement("img");
@@ -74,7 +75,6 @@ window.addEventListener("load", function () {
 
   let suitcasey = document.createElement("img");
   suitcasey.src = "img/suitcasey.png";
-
   
   class ClickableObject {
     constructor(width, height, x, y, name, image) {
@@ -126,6 +126,7 @@ window.addEventListener("load", function () {
     score: 0,
     started: false,
     winCondition: false,
+    finished: false,
     
     startGame (){
       //display game screen, call start timer, display score
@@ -167,7 +168,7 @@ window.addEventListener("load", function () {
 
     startTimer() {
         let minutes = 0;
-        let seconds = 3;
+        let seconds = 5;
         const timerElement = document.getElementById("timer");
           
         let intervalId = setInterval(() => {
@@ -182,20 +183,17 @@ window.addEventListener("load", function () {
         //   console.log(seconds);
           if (minutes === 0 && seconds === 0) {
             clearInterval(intervalId);
+            this.finished = true;
             this.loose()
             return;
           }
-            } else {
-                clearInterval(intervalId) 
-            }
+            } else {clearInterval(intervalId)}
         }, 1000);
         // if you win the timer stops
       },
   
       padZero(num) {return num.toString().padStart(2, "0");},
-
       stopTime() {clearInterval()},
-
       displayScore() {
         let scoreToDisplay = document.getElementById("score");
         scoreToDisplay.textContent = "Score: " + game.score;
@@ -204,20 +202,20 @@ window.addEventListener("load", function () {
     loose() {
       for (let i = 0; i < clickableObjects.length; i++) {
         clickableObjects[i].solve = true;
-        console.log("all riddles solved")
+        console.log("all riddles solved");
       }
 
       backgroundMusic.pause();
       snorringAudio.pause();
       looseAudio.play();
-      // let auntMildredEntered = false;
+      let auntMildredEntered = false;
       let x = 1000;
 
       intervalId = setInterval(() => {
         if(x<350){
           clearInterval(intervalId);
-          // auntMildredEntered = true;
-          // console.log(auntMildredEntered);
+          auntMildredEntered = true;
+          console.log(auntMildredEntered);
           this.finishGame(ctx);
         };
         
@@ -254,22 +252,24 @@ window.addEventListener("load", function () {
       }, 10)
 
     },
-
+//finishGame & printLooseScreen work in mysterious ways. They give errors but removing seemingly irrelevant parts will result in the final black screen not appearing
     finishGame(ctx){
       evilLaughAudio.play();
       ctx.fillStyle = "black";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      console.log("game finished")
-      ctx.fillStyle = "#000000";
+      ctx.fillStyle = "#a8986a";
+      ctx.font = "50px Papyrus";
+      ctx.fillText("You loose!", 350, 200);
       ctx.font = "24px Papyrus";
-      ctx.fillText(startText1, 20, 420);
+      ctx.fillText("Aunt Mildred arrived and saw, you're helping your grandma with the riddles.", 50, 300);
+      ctx.fillText("Your grandma has been disqualified from the riddle contest.", 50, 400)
       this.printLooseScreen();
+      console.log("game finished")
     },
   
     printLooseScreen() {
       if(auntMildredEntered == true){
-        ctx.font = "20px Georgia"
-        ctx.fillText("You lost!!!", 10, 50)
+        // ctx.font = "20px Georgia"
       }
     },
 
@@ -278,7 +278,7 @@ window.addEventListener("load", function () {
       //Print winning screen
       ctx.fillStyle = "#9F8E72";
       ctx.fillRect(0, 0, 1000, 550);
-      ctx.fillStyle = "#000000";
+      ctx.fillStyle = "#a8986a";
       ctx.font = "40px Papyrus";
       ctx.fillText("You won!!!", 380, 100,);
 
@@ -322,6 +322,7 @@ window.addEventListener("load", function () {
 
   ctx.fillText(startText1, 20, 420);
   ctx.fillText(startText2, 20, 480);
+  ctx.fillText(startTextClick, 20, 540);
   ctx.fillText(startText3, 330, 100, 800);
 
   auntMildred.onload =() => {ctx.drawImage(auntMildred, 350, 150, 200, 200)};
@@ -344,7 +345,7 @@ window.addEventListener("load", function () {
         ) {
           //Display riddle
           console.log("you clicked on an image!");
-          if (clickableObjects[i].solved == false) {
+          if (clickableObjects[i].solved == false && game.finished == false) {
             riddles[i].modal.show();
             openRiddleAudio.play();
           }
@@ -474,14 +475,4 @@ window.addEventListener("load", function () {
       window.alert("Wrong answer, try again");
     }
   });
-
-  //   canvas.addEventListener("onmouseover", (e) => {
-  //     console.log(); //Mariona?!!! How did you check, which values a mouseevent returns?? Or can I use isPointInside here?
-
-  // image.isPointInside = function(x,y){
-  //     return( x>=this.x
-  //             && x<=this.x+this.width
-  //             && y>=this.y
-  //             && y<=this.y+this.height);
-  //   });
 });

@@ -1,184 +1,366 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/styles.css"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Sofia"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
     <title>Grandmother's Escape Room</title>
-</head>
-<body>
-    
-<!-- RIDDLE POPUP WINDOWS -->
-<!-- Modal1 -->
-<div class="modal fade" id="riddle1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Mrs. Chaps - taxidermed: You've found a new riddle!</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        What common English verb becomes its own past tence by rearranging its letters?
-      </div>
-      <div class="form-floating">
-        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea1"></textarea>
-        <label for="floatingTextarea" id="answer1">Your answer</label>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" id ="button1" class="btn btn-primary" data-bs-dismiss="modal">Check answer</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div id="correctAlert1"></div>
-<div id="wrongAlert1"></div>
-<!-- Modal1 -->
-
-<!-- Modal2 -->
-<div class="modal fade" id="riddle2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Clock: You've found a new riddle!</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Four prisoners are caught and are to be punished. The judge allows them to be freed if they can solve a puzzle. If they do not, they will be hanged. They all agree.
-
-        The four prisoners are lined up on some steps (shown below). They are all facing in the same direction. A wall separates the fourth prisoner from the other three.
-
-        To summarize:-
-        Man 1 can see men 2 and 3.
-        Man 2 can see man 3.
-        Man 3 can see none of the others.
-        Man 4 can see none of the others.
-
-        <img src="img/prisonersRiddle.webp" alt="Prisoners">
-
-        The prisoners are wearing hats. They are told that there are two white hats and two black hats. The men initially don’t know what colour hat they are wearing. They are told to shout out the color of the hat that they are wearing as soon as they know for certain what colour it is.
-
-        They are not allowed to turn round or move.
-        They are not allowed to talk to each other.
-        They are not allowed to take their hats off.
-        Who is the first person to shout out? Please enter the number that corresponds to the prisioner.
-      </div>
-      <div class="form-floating">
-        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"></textarea>
-        <label for="floatingTextarea">Your answer</label>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="button2" data-bs-dismiss="modal">Check answer</button>
+  </head>
+  <body>
+    <!-- RIDDLE POPUP WINDOWS -->
+    <!-- Modal1 -->
+    <div
+      class="modal fade"
+      id="riddle1"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Mrs. Chaps - taxidermed: You've found a new riddle!
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            What common English verb becomes its own past tence by rearranging
+            its letters?
+          </div>
+          <div class="form-floating">
+            <textarea
+              class="form-control"
+              placeholder="Leave a comment here"
+              id="floatingTextarea1"
+            ></textarea>
+            <label for="floatingTextarea" id="answer1">Your answer</label>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              id="button1"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Check answer
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<div id="correctAlert2"></div>
-<div id="wrongAlert2"></div>
-<!-- Modal2 -->
+    <div id="correctAlert1"></div>
+    <div id="wrongAlert1"></div>
+    <!-- Modal1 -->
 
-<!-- Modal3 -->
-<div class="modal fade" id="riddle3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Old phone: You've found a new riddle!</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        You walk up to a mountain that has two paths. One leads to the other side of the mountain, and the other will get you lost forever. Two brothers know the path that leads to the other side. You can ask them only one question. Except! One lies and one tells the truth, and you don't know which is which. So, What do you ask?
-      </div>
-      <div class="form-floating">
-        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea3"></textarea>
-        <label for="floatingTextarea">Your answer</label>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="button3" data-bs-dismiss="modal">Check answer</button>
+    <!-- Modal2 -->
+    <div
+      class="modal fade"
+      id="riddle2"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Clock: You've found a new riddle!
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            Four prisoners are caught and are to be punished. The judge allows
+            them to be freed if they can solve a puzzle. If they do not, they
+            will be hanged. They all agree. The four prisoners are lined up on
+            some steps (shown below). They are all facing in the same direction.
+            A wall separates the fourth prisoner from the other three. To
+            summarize:- Man 1 can see men 2 and 3. Man 2 can see man 3. Man 3
+            can see none of the others. Man 4 can see none of the others.
+
+            <img src="img/prisonersRiddle.webp" alt="Prisoners" />
+
+            The prisoners are wearing hats. They are told that there are two
+            white hats and two black hats. The men initially don’t know what
+            colour hat they are wearing. They are told to shout out the color of
+            the hat that they are wearing as soon as they know for certain what
+            colour it is. They are not allowed to turn round or move. They are
+            not allowed to talk to each other. They are not allowed to take
+            their hats off. Who is the first person to shout out? Please enter
+            the number that corresponds to the prisioner.
+          </div>
+          <div class="form-floating">
+            <textarea
+              class="form-control"
+              placeholder="Leave a comment here"
+              id="floatingTextarea2"
+            ></textarea>
+            <label for="floatingTextarea">Your answer</label>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="button2"
+              data-bs-dismiss="modal"
+            >
+              Check answer
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<div id="correctAlert3"></div>
-<div id="wrongAlert3"></div>
-<!-- Modal3 -->
+    <div id="correctAlert2"></div>
+    <div id="wrongAlert2"></div>
+    <!-- Modal2 -->
 
-<!-- Modal4 -->
-<div class="modal fade" id="riddle4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Grandpa's ashes: You've found a new riddle!</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        If 5 cats catch 5 mice in 5 minutes, how long will it take one cat to catch a mouse?
-      </div>
-      <div class="form-floating">
-        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea4"></textarea>
-        <label for="floatingTextarea">Your answer</label>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="button4" data-bs-dismiss="modal">Check answer</button>
+    <!-- Modal3 -->
+    <div
+      class="modal fade"
+      id="riddle3"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Old phone: You've found a new riddle!
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            You walk up to a mountain that has two paths. One leads to the other
+            side of the mountain, and the other will get you lost forever. Two
+            brothers know the path that leads to the other side. You can ask
+            them only one question. Except! One lies and one tells the truth,
+            and you don't know which is which. So, What do you ask?
+          </div>
+          <div class="form-floating">
+            <textarea
+              class="form-control"
+              placeholder="Leave a comment here"
+              id="floatingTextarea3"
+            ></textarea>
+            <label for="floatingTextarea">Your answer</label>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="button3"
+              data-bs-dismiss="modal"
+            >
+              Check answer
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<div id="correctAlert4"></div>
-<div id="wrongAlert4"></div>
-<!-- Modal4 -->
+    <div id="correctAlert3"></div>
+    <div id="wrongAlert3"></div>
+    <!-- Modal3 -->
 
-<!-- Modal5 -->
-<div class="modal fade" id="riddle5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Grandma (sleeping): You've found a new riddle!</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        David's father has three sons: Snap, Crackle, and _? 
-      </div>
-      <div class="form-floating">
-        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea5"></textarea>
-        <label for="floatingTextarea">Your answer</label>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="button5" data-bs-dismiss="modal">Check answer</button>
+    <!-- Modal4 -->
+    <div
+      class="modal fade"
+      id="riddle4"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Grandpa's ashes: You've found a new riddle!
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            If 5 cats catch 5 mice in 5 minutes, how long will it take one cat
+            to catch a mouse?
+          </div>
+          <div class="form-floating">
+            <textarea
+              class="form-control"
+              placeholder="Leave a comment here"
+              id="floatingTextarea4"
+            ></textarea>
+            <label for="floatingTextarea">Your answer</label>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="button4"
+              data-bs-dismiss="modal"
+            >
+              Check answer
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<div id="correctAlert5"></div>
-<div id="wrongAlert5"></div>
-<!-- Modal5 -->
+    <div id="correctAlert4"></div>
+    <div id="wrongAlert4"></div>
+    <!-- Modal4 -->
 
-<!-- adding sound -->
-<audio src="audio/backgroundmusic.wav" type ="audio/wav" id="backgroundmusic"></audio>
-<audio id="openriddle" src="audio/openriddle.mp3" type="audio/mpeg"></audio>
-<audio id="closeriddle" src="audio/closeriddle.wav" type ="audio/wav"></audio>
-<audio id="correctanswer" src="audio/correctanswer.wav" type="audio/wav"></audio>
-<audio id="wronganswer" src="audio/wronganswer.mp3" type="audio/mpeg"></audio>
-<audio id="snorring" src="audio/snorring.wav" type="audio/wav"></audio>
-<audio id="loose" src="audio/loose.wav" type="audio/wav"></audio>
-<audio id="applause" src="audio/applause.wav" type="audio/wav"></audio>
-<audio id="laugh" src="audio/evillaugh.wav" type="audio/wav"></audio>
+    <!-- Modal5 -->
+    <div
+      class="modal fade"
+      id="riddle5"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Grandma (sleeping): You've found a new riddle!
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            David's father has three sons: Snap, Crackle, and _?
+          </div>
+          <div class="form-floating">
+            <textarea
+              class="form-control"
+              placeholder="Leave a comment here"
+              id="floatingTextarea5"
+            ></textarea>
+            <label for="floatingTextarea">Your answer</label>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="button5"
+              data-bs-dismiss="modal"
+            >
+              Check answer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="correctAlert5"></div>
+    <div id="wrongAlert5"></div>
+    <!-- Modal5 -->
 
+    <!-- adding sound -->
+    <audio
+      src="audio/backgroundmusic.wav"
+      type="audio/wav"
+      id="backgroundmusic"
+    ></audio>
+    <audio id="openriddle" src="audio/openriddle.mp3" type="audio/mpeg"></audio>
+    <audio
+      id="closeriddle"
+      src="audio/closeriddle.wav"
+      type="audio/wav"
+    ></audio>
+    <audio
+      id="correctanswer"
+      src="audio/correctanswer.wav"
+      type="audio/wav"
+    ></audio>
+    <audio
+      id="wronganswer"
+      src="audio/wronganswer.mp3"
+      type="audio/mpeg"
+    ></audio>
+    <audio id="snorring" src="audio/snorring.wav" type="audio/wav"></audio>
+    <audio id="loose" src="audio/loose.wav" type="audio/wav"></audio>
+    <audio id="applause" src="audio/applause.wav" type="audio/wav"></audio>
+    <audio id="laugh" src="audio/evillaugh.wav" type="audio/wav"></audio>
 
     <canvas id="canvas" width="1000" height="550"></canvas>
 
-    <div class = "containerTimeScore">
+    <div class="containerTimeScore">
       <div id="timer"></div>
       <div id="score"></div>
     </div>
 
     <script src="js/index.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-</body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
