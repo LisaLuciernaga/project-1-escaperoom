@@ -168,8 +168,8 @@ window.addEventListener("load", function () {
     },
 
     startTimer() {
-        let minutes = 5;
-        let seconds = 0;
+        let minutes = 0;
+        let seconds = 10;
         const timerElement = document.getElementById("timer");
           
         let intervalId = setInterval(() => {
@@ -445,7 +445,7 @@ window.addEventListener("load", function () {
       console.log(game.score);
       correctAnswerAudio.play();
       window.alert("Correct answer!");
-      if (game.score == 5) game.win();
+      if (game.score == 1) game.win();
     } else {
       wrongAnswerAudio.play();
       console.log("wrong answer");
